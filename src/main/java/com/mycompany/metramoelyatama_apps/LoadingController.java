@@ -10,6 +10,6 @@ import javafx.scene.control.ProgressBar;
 public class LoadingController {
 
     @FXML
-    public ProgressBar progressBar; // Pastikan fx:id di Scene Builder namanya juga 'progressBar'
+    public ProgressBar progressBar;
 
 }
