@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane id="rootRoot" fx:id="rootRoot" prefHeight="460.0" prefWidth="640.0" styleClass="root" stylesheets="@styles.css"
+           fx:controller="com.mycompany.metramoelyatama_apps.LoadingController" 
+           xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+
+    <VBox alignment="CENTER" prefHeight="340.0" prefWidth="559.0" spacing="20" stylesheets="@styles.css">
+
+        <ImageView fx:id="logoImage" fitWidth="180" preserveRatio="true" styleClass="logo" />
+
+        <VBox alignment="CENTER" spacing="5">
+            <Label styleClass="title" text="CV METRAMOELYATAMA" textFill="#201A16" />
+
+            <Label styleClass="subtitle" text="CATERING &amp; PRINTING SERVICES" textFill="#7F5700" />
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="8">
+            <Label fx:id="loadingText" styleClass="loading-text" text="MENYIAPKAN ANTARMUKA..." textFill="#4D4548" />
+   
+            <ProgressBar fx:id="progressBar" prefHeight="25.0" prefWidth="320.0" styleClass="progress-bar" />
+        </VBox>
+    </VBox>
+</StackPane>

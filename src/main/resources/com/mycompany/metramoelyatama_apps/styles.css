@@ -1,0 +1,62 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Apr 21, 2026, 5:27:54 AM
+    Author     : refagi
+*/
+
+
+.root {
+    -fx-background-color: #FFF8F5;
+    -fx-background-radius: 20;
+}
+
+.logo {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0, 0, 8);
+}
+
+.title {
+    -fx-font-family: "Arial Black", "Helvetica", sans-serif;
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #201A16;
+    -fx-letter-spacing: 2px;
+}
+
+.subtitle {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #7F5700;
+    -fx-letter-spacing: 4px;
+}
+
+.loading-text {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 15px;
+    -fx-text-fill: #4D4548;
+}
+
+.progress-bar {
+    -fx-accent: #1C2526;
+    -fx-control-inner-background: #e5e5e5;
+    -fx-background-radius: 0;
+    -fx-bar-color: #201A16;
+    -fx-pref-height: 10px;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.version {
+    -fx-font-size: 11px;
+    -fx-text-fill: #aaaaaa;
+}
+
+.stack-pane {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 10);
+}

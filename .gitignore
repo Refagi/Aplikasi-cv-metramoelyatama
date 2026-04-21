@@ -1,0 +1,18 @@
+# Maven
+target/
+*.jar
+*.war
+*.ear
+
+# NetBeans //Misspelled Word
+nbproject/private/  //Misspelled Word
+build/ 
+dist/
+nbbuild/ //Misspelled Word
+nbdist/  //Misspelled Word
+.nb-gradle/  //Misspelled Word
+.netbeans/  //Misspelled Word
+
+# OS
+.DS_Store  //Misspelled Word
+Thumbs.db 
