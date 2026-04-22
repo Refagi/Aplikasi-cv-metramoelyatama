@@ -13,9 +13,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-radius: 20;
 }
 
-.logo {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0, 0, 8);
-}
 
 .title {
     -fx-font-family: "Arial Black", "Helvetica", sans-serif;

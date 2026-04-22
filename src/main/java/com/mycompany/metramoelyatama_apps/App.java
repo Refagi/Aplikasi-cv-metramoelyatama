@@ -21,6 +21,13 @@ public class App extends Application {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
+                try {
+                    System.out.println("Mencoba koneksi ke database...");
+                    utils.DBConnection.getInstance().getConnection();
+                } catch (Exception e) {
+                    System.out.println("Koneksi gagal!");
+                    e.printStackTrace();
+                }
                 for (int i = 0; i <= 50; i++) {
                     updateProgress(i, 50);
                     Thread.sleep(60);
@@ -69,7 +76,7 @@ public class App extends Application {
             return loader;
 
         } catch (IOException e) {
-            System.out.println("❌ Gagal memuat Loading.fxml");
+            System.out.println("Gagal memuat Loading.fxml");
             e.printStackTrace();
             return null;
         }
