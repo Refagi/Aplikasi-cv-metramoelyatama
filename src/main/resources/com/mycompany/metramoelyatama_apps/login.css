@@ -1,0 +1,123 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+.root {
+    -fx-background-color: #F5F3EE;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.left-panel {
+    -fx-background-color: #F5F3EE;
+}
+
+.brand-name {
+    -fx-font-size: 28px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #3D3D3A;
+    -fx-letter-spacing: 0.5px;
+}
+
+.brand-tagline {
+    -fx-font-size: 14px;
+    -fx-text-fill: #9C9A92;
+    -fx-letter-spacing: 2px;
+}
+
+.greeting {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #3D3D3A;
+}
+
+.greeting-sub {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #3D3D3A;
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #73726C;
+    -fx-letter-spacing: 0.5px;
+}
+
+/*.input-container {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-color: #E0DED4;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-padding: 0 5 0 5;
+    -fx-pref-height: 44;
+}
+
+.input-container:focused {
+    -fx-border-color: #534AB7;
+    -fx-border-width: 2px;
+}*/
+
+/*.input-icon {
+    -fx-font-size: 16px;
+    -fx-text-fill: #9C9A92;
+}*/
+
+.input-field {
+    -fx-background-color: #F2E6DF;
+    -fx-border-width: 0;
+    -fx-font-size: 14px;
+    -fx-text-fill: #3D3D3A;
+    -fx-prompt-text-fill: #B4B2A9;
+    -fx-padding: 10px;
+    -fx-border-color: #3D3D3A;
+    -fx-border-radius: 4px;
+}
+
+.input-field:focused {
+    -fx-background-color: #F5F3EE;
+    -fx-border-width: 1px;
+}
+
+.forgot-link {
+    -fx-font-size: 12px;
+    -fx-text-fill: #854F0B;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.forgot-link:hover {
+    -fx-underline: true;
+}
+
+/* ========== LOGIN BUTTON ========== */
+.btn-login {
+    -fx-background-color: #473A40;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 14 28;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 1px;
+}
+
+.btn-login:hover {
+    -fx-background-color: #5E5850;
+}
+
+.btn-login:pressed {
+    -fx-background-color: #373330;
+}
+
+.right-panel {
+    -fx-background-color: #473A40;
+    -fx-background-radius: 20 20 20 20;
+}
+
+.company-name {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-letter-spacing: 2px;
+}

@@ -1,5 +1,7 @@
 package com.mycompany.metramoelyatama_apps;
 
+import controller.LoadingController;
+import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,9 +13,11 @@ import java.io.IOException;
 public class App extends Application {
 
     private Stage loadingStage;
+    private Stage authStage;
 
     @Override
     public void start(Stage stage) throws IOException {
+        this.authStage = stage;
         
         FXMLLoader loader = showLoadingScreen();        
         LoadingController controller = loader.getController();
@@ -28,8 +32,8 @@ public class App extends Application {
                     System.out.println("Koneksi gagal!");
                     e.printStackTrace();
                 }
-                for (int i = 0; i <= 50; i++) {
-                    updateProgress(i, 50);
+                for (int i = 0; i <= 100; i++) {
+                    updateProgress(i, 100);
                     Thread.sleep(60);
                 }
                 return null;
@@ -40,20 +44,7 @@ public class App extends Application {
 
         task.setOnSucceeded(e -> {
             loadingStage.close();
-
-            try {
-                FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("Main.fxml"));
-                Scene scene = new Scene(mainLoader.load());
-
-                stage.setScene(scene);
-                stage.setTitle("CV Metramoelyatama");
-                stage.setResizable(false);
-                stage.centerOnScreen();
-                stage.show();
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            showLoginScreen();
         });
 
         new Thread(task).start();
@@ -62,7 +53,7 @@ public class App extends Application {
     private FXMLLoader showLoadingScreen() {
         try {
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/mycompany/metramoelyatama_apps/Loading.fxml")
+                getClass().getResource("Loading.fxml")
             );
 
             Scene scene = new Scene(loader.load());
@@ -79,6 +70,31 @@ public class App extends Application {
             System.out.println("Gagal memuat Loading.fxml");
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    
+    private void showLoginScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("Login.fxml")
+            );
+            Scene scene = new Scene(loader.load());
+            
+            scene.getStylesheets().add(
+                getClass().getResource("login.css")
+                          .toExternalForm()
+            );
+            
+            authStage.setScene(scene);
+            authStage.setTitle("Login - CV Metramoelyatama");
+            authStage.setResizable(false);
+            authStage.centerOnScreen();
+            authStage.show();
+            
+        } catch (IOException e) {
+            System.out.println("Gagal memuat Login.fxml");
+            e.printStackTrace();
         }
     }
 
