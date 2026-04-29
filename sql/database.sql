@@ -30,7 +30,7 @@ CREATE TABLE `Users` (
   id VARCHAR(36) PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
-  role ENUM('Karyawan', 'Admin', 'Supplier') NOT NULL,
+  role ENUM('Karyawan', 'Admin') NOT NULL,
   status ENUM('online', 'offline', 'blacklisted') DEFAULT 'offline',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -71,12 +71,11 @@ CREATE TABLE `Admin` (
 
 CREATE TABLE `Supplier` (
   id VARCHAR(36) PRIMARY KEY,
-  userId VARCHAR(36),
   nama VARCHAR(255) NOT NULL,
+  email VARCHAR(100),
   alamat TEXT,
   no_telp VARCHAR(15) UNIQUE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (userId) REFERENCES `Users`(id) ON DELETE CASCADE
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Jenis_layanan` (
@@ -98,7 +97,7 @@ CREATE TABLE `Orders` (
   keterangan TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (clientId) REFERENCES Client(id) ON DELETE CASCADE,
-  FOREIGN KEY (karyawanId) REFERENCES Karyawan(userId) ON DELETE SET NULL
+  FOREIGN KEY (karyawanId) REFERENCES Karyawan(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Detail_order` (
@@ -123,7 +122,7 @@ CREATE TABLE `Pengerjaan` (
   status ENUM('Belum Mulai', 'On Progress', 'Selesai') DEFAULT 'Belum Mulai',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (orderId) REFERENCES `Orders`(id) ON DELETE CASCADE,
-  FOREIGN KEY (karyawanId) REFERENCES Karyawan(userId) ON DELETE SET NULL
+  FOREIGN KEY (karyawanId) REFERENCES Karyawan(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Invoice` (
@@ -149,7 +148,7 @@ CREATE TABLE `Barang` (
   satuan ENUM('Pcs', 'Box', 'Kg', 'Liter', 'Unit') DEFAULT 'Pcs',
   supplierId VARCHAR(36),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (supplierId) REFERENCES Supplier(userId) ON DELETE SET NULL
+  FOREIGN KEY (supplierId) REFERENCES Supplier(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Pembelian` (
@@ -160,8 +159,8 @@ CREATE TABLE `Pembelian` (
   karyawanId VARCHAR(36),
   total DECIMAL(15,2),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (supplierId) REFERENCES Supplier(userId) ON DELETE SET NULL,
-  FOREIGN KEY (karyawanId) REFERENCES Karyawan(userId) ON DELETE SET NULL
+  FOREIGN KEY (supplierId) REFERENCES Supplier(id) ON DELETE SET NULL,
+  FOREIGN KEY (karyawanId) REFERENCES Karyawan(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Detail_pembelian` (
@@ -185,7 +184,7 @@ CREATE TABLE `Penjualan` (
   total DECIMAL(15,2),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (clientId) REFERENCES Client(id) ON DELETE SET NULL,
-  FOREIGN KEY (karyawanId) REFERENCES Karyawan(userId) ON DELETE SET NULL
+  FOREIGN KEY (karyawanId) REFERENCES Karyawan(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Detail_penjualan` (
@@ -207,33 +206,31 @@ INSERT INTO `Users` (id, email, password, role, status) VALUES
 ('usr-admin-001', 'admin@metramoelyatama.com', 'admin123', 'Admin', 'online'),
 ('usr-kary-001', 'budi@metramoelyatama.com', 'budi123', 'Karyawan', 'offline'),
 ('usr-kary-002', 'siti@metramoelyatama.com', 'siti123', 'Karyawan', 'offline'),
-('usr-kary-003', 'ahmad@metramoelyatama.com', 'ahmad123', 'Karyawan', 'offline'),
-('usr-supp-001', 'supplier1@gmail.com', 'supp123', 'Supplier', 'offline'),
-('usr-supp-002', 'supplier2@gmail.com', 'supp456', 'Supplier', 'offline');
+('usr-kary-003', 'ahmad@metramoelyatama.com', 'ahmad123', 'Karyawan', 'offline');
 
--- SEED: Admin
+-- 2. Admin
 INSERT INTO `Admin` (id, userId, nama, no_telp) VALUES
-('admin-021', 'usr-admin-001', 'Administrator', '081234567890');
+('admin-001', 'usr-admin-001', 'Administrator', '081234567890');
 
--- SEED: Karyawan
+-- 3. Karyawan
 INSERT INTO `Karyawan` (id, userId, nama, jabatan, no_telp, tgl_masuk, status) VALUES
-('kary-012', 'usr-kary-001', 'Budi Santoso', 'Konsultan Pajak Senior', '081234567891', '2020-01-15', 'aktif'),
-('kary-052', 'usr-kary-002', 'Siti Nurhaliza', 'Staff Administrasi', '081234567892', '2021-03-10', 'aktif'),
-('kary-017', 'usr-kary-003', 'Ahmad Rizki', 'Konsultan Pajak Junior', '081234567893', '2022-06-01', 'aktif');
+('kary-001', 'usr-kary-001', 'Budi Santoso', 'Konsultan Pajak Senior', '081234567891', '2020-01-15', 'aktif'),
+('kary-002', 'usr-kary-002', 'Siti Nurhaliza', 'Staff Administrasi', '081234567892', '2021-03-10', 'aktif'),
+('kary-003', 'usr-kary-003', 'Ahmad Rizki', 'Konsultan Pajak Junior', '081234567893', '2022-06-01', 'aktif');
 
--- SEED: Supplier
-INSERT INTO `Supplier` (id, userId, nama, alamat, no_telp) VALUES
-('sup-026', 'usr-supp-001', 'PT Kertas Jaya', 'Jl. Industri No. 10, Jakarta', '021-12345678'),
-('supp-014', 'usr-supp-002', 'CV Alat Tulis Makmur', 'Jl. Perdagangan No. 25, Bandung', '022-87654321');
+-- 4. Supplier (Tanpa userId)
+INSERT INTO `Supplier` (id, nama, email, alamat, no_telp) VALUES
+('sup-001', 'PT Kertas Jaya', 'supplier1@gmail.com', 'Jl. Industri No. 10, Jakarta', '021-12345678'),
+('sup-002', 'CV Alat Tulis Makmur', 'supplier2@gmail.com', 'Jl. Perdagangan No. 25, Bandung', '022-87654321');
 
--- SEED: Clien
+-- 5. Client
 INSERT INTO `Client` (id, nama, jenis_wajib_pajak, npwp, alamat, no_telp, email, tgl_daftar) VALUES
 ('cln-001', 'PT Maju Jaya', 'Badan', '01.234.567.8-901.000', 'Jl. Sudirman No. 123, Jakarta', '02112345678', 'info@majujaya.com', '2023-01-10'),
 ('cln-002', 'CV Berkah Selalu', 'Badan', '02.345.678.9-012.000', 'Jl. Gatot Subroto No. 45, Bandung', '02298765432', 'cv.berkah@gmail.com', '2023-02-15'),
 ('cln-003', 'Andi Setiawan', 'Pribadi', '03.456.789.0-123.000', 'Jl. Diponegoro No. 67, Surabaya', '08123456789', 'andi.setiawan@email.com', '2023-03-20'),
 ('cln-004', 'PT Digital Solusi', 'Badan', '04.567.890.1-234.000', 'Jl. Teknologi No. 88, Yogyakarta', '02743218765', 'cs@digitalsolusi.id', '2023-04-01');
 
--- SEED: Jenis Layanan
+-- 6. Jenis Layanan
 INSERT INTO `Jenis_layanan` (id, nama, deskripsi, tarif, satuan) VALUES
 ('lyn-001', 'SPT Tahunan Pribadi', 'Pembuatan SPT Tahunan untuk Wajib Pajak Pribadi', 500000.00, 'per laporan'),
 ('lyn-002', 'SPT Tahunan Badan', 'Pembuatan SPT Tahunan untuk Wajib Pajak Badan', 2500000.00, 'per laporan'),
@@ -242,54 +239,54 @@ INSERT INTO `Jenis_layanan` (id, nama, deskripsi, tarif, satuan) VALUES
 ('lyn-005', 'Pembuatan NPWP', 'Pengurusan NPWP baru', 300000.00, 'per dokumen'),
 ('lyn-006', 'Konsultasi Pajak', 'Konsultasi perpajakan umum', 200000.00, 'per jam');
 
--- SEED: Order
+-- 7. Orders
 INSERT INTO `Orders` (id, clientId, karyawanId, tgl_order, batas_waktu, status_order, keterangan) VALUES
-('ord-2024-001', 'cln-001', 'usr-kary-001', '2024-01-05', '2024-01-31', 'Selesai', 'SPT Tahunan 2023'),
-('ord-2024-002', 'cln-002', 'usr-kary-001', '2024-02-10', '2024-03-15', 'Proses', 'Pelaporan PPN Januari-Februari'),
-('ord-2024-003', 'cln-003', 'usr-kary-003', '2024-03-01', '2024-03-31', 'Pending', 'SPT Tahunan Pribadi 2023'),
-('ord-2024-004', 'cln-004', 'usr-kary-002', '2024-04-01', '2024-04-30', 'Pending', 'Konsultasi pajak bulanan');
+('ord-2024-001', 'cln-001', 'kary-001', '2024-01-05', '2024-01-31', 'Selesai', 'SPT Tahunan 2023'),
+('ord-2024-002', 'cln-002', 'kary-001', '2024-02-10', '2024-03-15', 'Proses', 'Pelaporan PPN Januari-Februari'),
+('ord-2024-003', 'cln-003', 'kary-003', '2024-03-01', '2024-03-31', 'Pending', 'SPT Tahunan Pribadi 2023'),
+('ord-2024-004', 'cln-004', 'kary-002', '2024-04-01', '2024-04-30', 'Pending', 'Konsultasi pajak bulanan');
 
--- SEED: Detail Order
 INSERT INTO `Detail_order` (id, orderId, layananId, jumlah, tarif, subtotal) VALUES
 ('dord-001', 'ord-2024-001', 'lyn-002', 1, 2500000.00, 2500000.00),
 ('dord-002', 'ord-2024-002', 'lyn-003', 2, 750000.00, 1500000.00),
 ('dord-003', 'ord-2024-003', 'lyn-001', 1, 500000.00, 500000.00),
 ('dord-004', 'ord-2024-004', 'lyn-006', 3, 200000.00, 600000.00);
 
--- SEED: Pengerjaan
+-- 9. Pengerjaan
 INSERT INTO `Pengerjaan` (id, orderId, karyawanId, tgl_mulai, tgl_selesai, catatan, status) VALUES
-('pgr-001', 'ord-2024-001', 'usr-kary-001', '2024-01-06', '2024-01-20', 'Selesai tepat waktu', 'Selesai'),
-('pgr-002', 'ord-2024-002', 'usr-kary-001', '2024-02-11', NULL, 'Sedang dikerjakan', 'On Progress');
+('pgr-001', 'ord-2024-001', 'kary-001', '2024-01-06', '2024-01-20', 'Selesai tepat waktu', 'Selesai'),
+('pgr-002', 'ord-2024-002', 'kary-001', '2024-02-11', NULL, 'Sedang dikerjakan', 'On Progress');
 
--- SEED: Invoice
+-- 10. Invoice
 INSERT INTO `Invoice` (id, orderId, tgl_invoice, total_bayar, status_bayar, tgl_bayar, metode_bayar) VALUES
 ('inv-2024-001', 'ord-2024-001', '2024-01-25', 2500000.00, 'Lunas', '2024-01-30', 'Transfer Bank'),
 ('inv-2024-002', 'ord-2024-002', '2024-02-28', 1500000.00, 'Belum Lunas', NULL, NULL);
 
--- SEED: Barang
-INSERT INTO Barang (id, kode_barang, nama_barang, deskripsi, harga_beli, harga_jual, stok, satuan, supplierId) VALUES
-('brg-001', 'ATK-001', 'Kertas A4 70gsm', 'Kertas A4 ukuran 70gsm isi 500 lembar', 35000.00, 45000.00, 50, 'Box', 'usr-supp-001'),
-('brg-002', 'ATK-002', 'Pulpen Hitam', 'Pulpen tinta hitam standar', 2000.00, 3000.00, 200, 'Pcs', 'usr-supp-002'),
-('brg-003', 'ATK-003', 'Stabilo Warna', 'Highlighter warna warni set 4', 15000.00, 20000.00, 30, 'Box', 'usr-supp-002'),
-('brg-004', 'ATK-004', 'Map Plastik', 'Map plastik transparan A4', 5000.00, 8000.00, 100, 'Pcs', 'usr-supp-001');
+-- 11. Barang
+INSERT INTO `Barang` (id, kode_barang, nama_barang, deskripsi, harga_beli, harga_jual, stok, satuan, supplierId) VALUES
+('brg-001', 'ATK-001', 'Kertas A4 70gsm', 'Kertas A4 ukuran 70gsm isi 500 lembar', 35000.00, 45000.00, 50, 'Box', 'sup-001'),
+('brg-002', 'ATK-002', 'Pulpen Hitam', 'Pulpen tinta hitam standar', 2000.00, 3000.00, 200, 'Pcs', 'sup-002'),
+('brg-003', 'ATK-003', 'Stabilo Warna', 'Highlighter warna warni set 4', 15000.00, 20000.00, 30, 'Box', 'sup-002'),
+('brg-004', 'ATK-004', 'Map Plastik', 'Map plastik transparan A4', 5000.00, 8000.00, 100, 'Pcs', 'sup-001');
 
-INSERT INTO Pembelian (id, no_faktur, tanggal, supplierId, karyawanId, total) VALUES
-('pmb-001', 'PBL/2024/001', '2024-01-15 10:30:00', 'usr-supp-001', 'usr-kary-002', 1750000.00),
-('pmb-002', 'PBL/2024/002', '2024-02-20 14:00:00', 'usr-supp-002', 'usr-kary-002', 850000.00);
+-- 12. Pembelian
+INSERT INTO `Pembelian` (id, no_faktur, tanggal, supplierId, karyawanId, total) VALUES
+('pmb-001', 'PBL/2024/001', '2024-01-15 10:30:00', 'sup-001', 'kary-002', 1750000.00),
+('pmb-002', 'PBL/2024/002', '2024-02-20 14:00:00', 'sup-002', 'kary-002', 850000.00);
 
--- SEED: Detail Pembelian
-INSERT INTO Detail_pembelian (id, pembelianId, barangId, qty, harga, subtotal) VALUES
+-- 13. Detail Pembelian
+INSERT INTO `Detail_pembelian` (id, pembelianId, barangId, qty, harga, subtotal) VALUES
 ('dpmb-001', 'pmb-001', 'brg-001', 50, 35000.00, 1750000.00),
 ('dpmb-002', 'pmb-002', 'brg-002', 200, 2000.00, 400000.00),
 ('dpmb-003', 'pmb-002', 'brg-003', 30, 15000.00, 450000.00);
 
--- SEED: Penjualan
-INSERT INTO Penjualan (id, no_faktur, tanggal, clientId, karyawanId, total) VALUES
-('pnj-001', 'PNJ/2024/001', '2024-03-10', 'cln-001', 'usr-kary-002', 225000.00),
-('pnj-002', 'PNJ/2024/002', '2024-03-25', 'cln-002', 'usr-kary-002', 180000.00);
+-- 14. Penjualan
+INSERT INTO `Penjualan` (id, no_faktur, tanggal, clientId, karyawanId, total) VALUES
+('pnj-001', 'PNJ/2024/001', '2024-03-10', 'cln-001', 'kary-002', 225000.00),
+('pnj-002', 'PNJ/2024/002', '2024-03-25', 'cln-002', 'kary-002', 180000.00);
 
--- SEED: Detail Penjualan
-INSERT INTO Detail_penjualan (id, penjualanId, barangId, qty, harga, subtotal) VALUES
+-- 15. Detail Penjualan
+INSERT INTO `Detail_penjualan` (id, penjualanId, barangId, qty, harga, subtotal) VALUES
 ('dpnj-001', 'pnj-001', 'brg-001', 5, 45000.00, 225000.00),
 ('dpnj-002', 'pnj-002', 'brg-002', 20, 3000.00, 60000.00),
 ('dpnj-003', 'pnj-002', 'brg-003', 6, 20000.00, 120000.00);
@@ -297,8 +294,8 @@ INSERT INTO Detail_penjualan (id, penjualanId, barangId, qty, harga, subtotal) V
 -- Indexes
 CREATE INDEX idx_user_email ON `Users`(email);
 CREATE INDEX idx_user_role ON `Users`(role);
-CREATE INDEX idx_clien_nama ON Client(nama);
+CREATE INDEX idx_client_nama ON `Client`(nama);
 CREATE INDEX idx_order_status ON `Orders`(status_order);
 CREATE INDEX idx_order_tanggal ON `Orders`(tgl_order);
-CREATE INDEX idx_invoice_status ON Invoice(status_bayar);
-CREATE INDEX idx_barang_kode ON Barang(kode_barang);
+CREATE INDEX idx_invoice_status ON `Invoice`(status_bayar);
+CREATE INDEX idx_barang_kode ON `Barang`(kode_barang);
