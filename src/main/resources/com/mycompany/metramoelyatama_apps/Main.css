@@ -1,0 +1,205 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+.root {
+    -fx-background-color: #f8f5f0;
+    -fx-font-family: "Segoe UI", "Tahoma", sans-serif;
+}
+
+.top-bar {
+    -fx-background-color: #FFF8F5;
+    -fx-border-color: #e5e0d8;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+}
+
+.search-field {
+    -fx-background-color: #F2E6DF;
+    -fx-border-color: #d4ccc0;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8 16;
+    -fx-font-size: 14px;
+}
+
+.search-field:focused {
+    -fx-border-color: #8c7a5e;
+    -fx-background-color: #ffffff;
+}
+
+.user-role {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8c7a5e;
+    -fx-font-weight: 500;
+}
+
+.user-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #2c2c2c;
+}
+
+.user-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #2c2c2c;
+}
+
+/* User Avatar Button */
+.user-avatar {
+    -fx-background-color: #2c2c2c;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-min-width: 38px;
+    -fx-min-height: 38px;
+    -fx-background-radius: 50%;
+    -fx-cursor: hand;
+}
+
+/* ================== SIDEBAR ================== */
+.sidebar {
+    -fx-background-color: #F8EBE4;
+    -fx-border-color: #e5e0d8;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 10;
+}
+
+.brand-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #2c2c2c;
+}
+
+.brand-subtitle {
+    -fx-font-size: 10px;
+    -fx-text-fill: #8c7a5e;
+    -fx-letter-spacing: 1px;
+}
+
+.menu-section-title {
+    -fx-font-size: 11px;
+    -fx-text-fill: #9c9a92;
+    -fx-font-weight: 600;
+    -fx-padding: 8 12 4 12;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #555;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.menu-item:hover {
+    -fx-background-color: #f0e9dd;
+}
+
+.menu-item:active, .menu-item.active {
+    -fx-background-color: #FFF8F5;
+    -fx-text-fill: #5c4633;
+    -fx-font-weight: 600;
+}
+
+.submenu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #73726c;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8px 16px 8px 12px;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.submenu-item:hover {
+    -fx-background-color: #f5ede3;
+    -fx-text-fill: #473a40;
+}
+
+.submenu-item:active, .submenu-item.active {
+    -fx-background-color: #FFF8F5;
+    -fx-text-fill: #5c4633;
+    -fx-font-weight: 600;
+}
+
+/* ScrollPane untuk menu */
+.menu-scroll {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.menu-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.menu-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6px;
+}
+
+.menu-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #d4ccc0;
+    -fx-background-radius: 3px;
+}
+
+.menu-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+/* Content Area */
+.content-area {
+    -fx-background-color: #FFF8F5;
+}
+
+.btn-logout {
+    -fx-background-color: transparent;
+    -fx-text-fill: #5F5157;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px 16px 10px 16px;
+}
+
+.btn-logout:hover {
+    -fx-text-fill: #c44d4d;
+    -fx-background-color: #ffebee;
+}
+
+
+
+/*Dashboard*/
+.bg-shadow {
+    -fx-effect: dropshadow(three-pass-box, #201A16, 3, -3, 0, 0);
+}
+
+.bg-first {
+    -fx-background-color: #FFF8F5;
+}
+
+.bg-second {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px
+}
+
+.bg-third {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px
+}
+
+.title-card-top {
+    -fx-background-color: transparent;
+    -fx-text-fill: #5f5157;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+}
+
+.result-card-top {
+    -fx-background-color: transparent;
+    -fx-text-fill: #5f5157;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-alignment: center-left;
+}

@@ -43,26 +43,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-letter-spacing: 0.5px;
 }
 
-/*.input-container {
-    -fx-background-color: white;
-    -fx-background-radius: 6;
-    -fx-border-color: #E0DED4;
-    -fx-border-radius: 6;
-    -fx-border-width: 1;
-    -fx-padding: 0 5 0 5;
-    -fx-pref-height: 44;
-}
-
-.input-container:focused {
-    -fx-border-color: #534AB7;
-    -fx-border-width: 2px;
-}*/
-
-/*.input-icon {
-    -fx-font-size: 16px;
-    -fx-text-fill: #9C9A92;
-}*/
-
 .input-field {
     -fx-background-color: #F2E6DF;
     -fx-border-width: 0;
