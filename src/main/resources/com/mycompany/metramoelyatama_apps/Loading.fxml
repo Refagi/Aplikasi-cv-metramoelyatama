@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane id="rootRoot" fx:id="rootRoot" prefHeight="460.0" prefWidth="640.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadingController">
+<StackPane id="rootRoot" fx:id="rootRoot" prefHeight="460.0" prefWidth="640.0" styleClass="root" stylesheets="@css/Loading.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadingController">
 
-    <VBox alignment="CENTER" prefHeight="340.0" prefWidth="559.0" spacing="20" stylesheets="@styles.css">
+    <VBox alignment="CENTER" prefHeight="340.0" prefWidth="559.0" spacing="20">
 
         <ImageView fx:id="logoImage" fitWidth="180" preserveRatio="true">
          <image>

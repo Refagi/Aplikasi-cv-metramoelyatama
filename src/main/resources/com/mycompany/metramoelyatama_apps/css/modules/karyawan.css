@@ -1,0 +1,138 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+
+/*Master Karyawan*/
+.field-label-kry {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6b5e52;
+    -fx-font-weight: 600;
+}
+.input-field-kry {
+    -fx-background-color: #f8f5f0;
+    -fx-border-color: #d4ccc0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 7px 14px 7px 14px;
+    -fx-font-size: 14px;
+}
+.input-field-kry:focused {
+    -fx-border-color: #8c7a5e;
+    -fx-background-color: #ffffff;
+}
+
+.input-area-kry {
+    -fx-background-color: #f8f5f0;
+    -fx-border-color: #d4ccc0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
+    -fx-padding: 8;
+}
+.input-area-kry .content {
+    -fx-background-color: #f8f5f0;
+    -fx-background-radius: 8;
+    -fx-padding: 10px 14px 10px 14px;
+}
+.input-area-kry:focused {-fx-border-color: #8c7a5e;}
+
+.input-area-kry:focused .content {
+    -fx-background-color: #ffffff;
+}
+.date-picker-field-kry {
+    -fx-background-color: #f8f5f0;
+    -fx-border-color: #d4ccc0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
+}
+.date-picker-field-kry:focused {
+    -fx-border-color: #8c7a5e;
+    -fx-background-color: #ffffff;
+}
+.btn-primary-kry {
+    -fx-background-color: #5F5157;
+    -fx-cursor: hand;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 10px 20px 10px 20px;
+}
+.btn-secondary-kry {
+    -fx-background-color: #F2E6DF;
+    -fx-text-fill: #BA1A1A;
+    -fx-cursor: hand;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 10px 20px 10px 20px;
+}
+.btn-thirdty-kry {
+    -fx-background-color: #FBF3F3;
+    -fx-border-color: #F9E9E9;
+    -fx-cursor: hand;
+    -fx-border-radius: 8;
+    -fx-text-fill: #473A40;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 10px 20px 10px 20px;
+}
+
+.btn-primary-kry:hover {
+    -fx-background-color: #3C3337;
+    -fx-text-fill: #FFFFFF;
+}
+
+.btn-secondary-kry:hover {
+    -fx-background-color: #FFE1D0;
+    -fx-text-fill: #BA1A1A;
+}
+
+.btn-thirdty-kry:hover {
+    -fx-background-color: #E2DCDC;
+    -fx-text-fill: #5F5157;
+}
+
+
+.custom-table {
+    -fx-background-color: #F7F2EF;
+    -fx-border-color: #D8CFC9;
+    -fx-background-radius: 10;
+}
+.custom-table .column-header-background { -fx-background-color: #F8EBE4;}
+.custom-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent #D8CFC9 transparent transparent;
+}
+.custom-table .column-header .label {
+    -fx-text-fill: #5F5157;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+.custom-table .table-row-cell {
+    -fx-background-color: #F7F2EF;
+    -fx-border-color: transparent transparent #E5DDD8 transparent;
+}
+.custom-table .table-row-cell:hover {
+    -fx-background-color: #EFE7E2;
+}
+.custom-table .table-row-cell:selected {
+    -fx-background-color: #BFAE9F;
+}
+.custom-table .table-cell {
+    -fx-text-fill: #473A40;
+    -fx-font-size: 13px;
+}
+.custom-table .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.custom-table .thumb {
+    -fx-background-color: #BFAE9F;
+    -fx-background-radius: 8;
+}
+
+.custom-separator-kry .line {
+    -fx-border-color: #473a40;
+    -fx-border-width: 1.5;
+}
