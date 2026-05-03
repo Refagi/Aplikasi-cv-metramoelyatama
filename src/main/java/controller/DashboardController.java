@@ -19,7 +19,7 @@ import utils.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class MainController {
+public class DashboardController{
 
     @FXML private TextField txtSearch;
     @FXML private Label lblUserRole;
