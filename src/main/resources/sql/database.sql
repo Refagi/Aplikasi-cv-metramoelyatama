@@ -201,7 +201,6 @@ CREATE TABLE `Detail_penjualan` (
 
 
 -- SEED DATA
--- SEED: User (Admin, Karyawan, Supplier)
 INSERT INTO `Users` (id, email, password, role, status) VALUES
 ('usr-admin-001', 'admin@metramoelyatama.com', 'admin123', 'Admin', 'online'),
 ('usr-kary-001', 'budi@metramoelyatama.com', 'budi123', 'Karyawan', 'offline'),
@@ -211,10 +210,10 @@ INSERT INTO `Users` (id, email, password, role, status) VALUES
 INSERT INTO `Admin` (id, userId, nama, no_telp) VALUES
 ('admin-001', 'usr-admin-001', 'Administrator', '081234567890');
 
-INSERT INTO `Karyawan` (id, userId, nama, jabatan, no_telp, tgl_masuk, status) VALUES
-('kary-001', 'usr-kary-001', 'Budi Santoso', 'Event Coordinator', '081234567891', '2023-01-15', 'aktif'),
-('kary-002', 'usr-kary-002', 'Siti Nurhaliza', 'Admin & Keuangan', '081234567892', '2023-02-10', 'aktif'),
-('kary-003', 'usr-kary-003', 'Ahmad Rizki', 'Supervisor Lapangan', '081234567893', '2023-03-01', 'aktif');
+INSERT INTO `Karyawan` (id, userId, nama, jabatan, no_telp, tgl_masuk) VALUES
+('kary-001', 'usr-kary-001', 'Budi Santoso', 'Event Coordinator', '081234567891', '2023-01-15'),
+('kary-002', 'usr-kary-002', 'Siti Nurhaliza', 'Admin & Keuangan', '081234567892', '2023-02-10'),
+('kary-003', 'usr-kary-003', 'Ahmad Rizki', 'Supervisor Lapangan', '081234567893', '2023-03-01');
 
 INSERT INTO `Supplier` (id, nama, email, alamat, no_telp) VALUES
 ('sup-001', 'PT Kertas & Percetakan Jaya', 'percetakanjaya@gmail.com', 'Jl. Industri No.10, Jakarta', '021-12345678'),
