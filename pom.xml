@@ -82,7 +82,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- Configuration for automatic IDE debugging -->
                         <id>ide-debug</id>
                         <configuration>
                             <options>
@@ -91,7 +90,6 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <!-- Configuration for automatic IDE profiling -->
                         <id>ide-profile</id>
                         <configuration>
                             <options>
