@@ -4,6 +4,8 @@ package controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+import java.io.IOException;
+import java.net.URL;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,73 +20,110 @@ import utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 
-public class DashboardController{
-
-    @FXML private TextField txtSearch;
-    @FXML private Label lblUserRole;
-    @FXML private Label lblUserName;
+    
+public class DashboardController implements Initializable {
+    
+    @FXML private StackPane mainForm;
+ 
+    // Top Bar
     @FXML private Label lblPageTitle;
-
-    // Sidebar Menu - Main
-    @FXML private VBox menuContainer;
+    @FXML private Label lblPageTitle1;
+    @FXML private Label lblPageTitle11;
+    @FXML private Label lblUserName;
+    @FXML private Label lblUserRole;
+ 
+    // Sidebar menu buttons
     @FXML private Button menuHome;
     @FXML private Button menuMaster;
     @FXML private Button menuTransaksi;
     @FXML private Button menuInventory;
     @FXML private Button menuLaporan;
-    @FXML private Button btnLogout;
-
-    @FXML private FontIcon iconMaster;
-    @FXML private FontIcon iconTransaksi;
-    @FXML private FontIcon iconInventory;
-    @FXML private FontIcon iconLaporan;
-
-    // Submenu Containers
+ 
+    // Sub-menu containers
     @FXML private VBox submenuMaster;
     @FXML private VBox submenuTransaksi;
     @FXML private VBox submenuInventory;
     @FXML private VBox submenuLaporan;
-
-    // Submenu Items - Master
-    @FXML private Button menuUsers;
+ 
+    // Sub-menu icons (chevron)
+    @FXML private FontIcon iconMaster;
+    @FXML private FontIcon iconTransaksi;
+    @FXML private FontIcon iconInventory;
+    @FXML private FontIcon iconLaporan;
+ 
+    // Master sub-menu items
     @FXML private Button menuClients;
     @FXML private Button menuKaryawan;
     @FXML private Button menuSupplier;
     @FXML private Button menuLayanan;
-
-    // Submenu Items - Transaksi
+ 
+    // Transaksi sub-menu items
     @FXML private Button menuOrder;
     @FXML private Button menuPengerjaan;
     @FXML private Button menuInvoice;
     @FXML private Button menuPembelian;
     @FXML private Button menuPenjualan;
-
-    // Submenu Items - Inventory
+ 
+    // Inventory sub-menu items
     @FXML private Button menuBarang;
     @FXML private Button menuStokBarang;
-
-    // Submenu Items - Laporan
+ 
+    // Laporan sub-menu items
     @FXML private Button menuLaporanOrder;
     @FXML private Button menuLaporanPengerjaan;
     @FXML private Button menuLaporanInvoice;
     @FXML private Button menuLaporanPembelian;
     @FXML private Button menuLaporanPenjualan;
     @FXML private Button menuLaporanKeuntungan;
-
-    // Content Area
-    @FXML private AnchorPane contentArea;
-
-    // User Data
+ 
+    // Logout
+    @FXML private Button btnLogout; 
+ 
     private String userId;
     private String userName;
     private String userRole;
+    
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        loadPage("/com/mycompany/metramoelyatama_apps/Master/Home.fxml");
+        
+        menuHome.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Master/Home.fxml");
+            lblPageTitle.setText("Home Dashboard");
+            setActiveSubmenu(menuHome);
+        });
 
-    @FXML
-    private void initialize() {
-        // Default: semua submenu collapsed
+        menuClients.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Master/Client.fxml");
+            lblPageTitle.setText("Data Client");
+            setActiveSubmenu(menuClients);
+        });
+
+        menuKaryawan.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Master/Karyawan.fxml");
+            lblPageTitle.setText("Data Karyawan");
+            setActiveSubmenu(menuKaryawan);
+        });
     }
+    
+    private void loadPage(String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
 
+            mainForm.getChildren().clear();
+            mainForm.getChildren().add(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void setUserData(String userId, String nama, String role) {
         this.userId = userId;
         this.userName = nama;
@@ -94,50 +133,49 @@ public class DashboardController{
         lblUserRole.setText(role);
 
         setupMenuByRole(role);
-        showDashboard();
     }
 
     private void setupMenuByRole(String role) {
-        switch (role) {
-            case "Admin":
-                // Admin: full access
-                break;
-
-            case "Karyawan":
-                // Hide user management
-                menuUsers.setVisible(false);
-                menuUsers.setManaged(false);
-                menuKaryawan.setVisible(false);
-                menuKaryawan.setManaged(false);
-                menuLaporanKeuntungan.setVisible(false);
-                menuLaporanKeuntungan.setManaged(false);
-                break;
+        if ("Karyawan".equals(role)) {
+            setNodeVisible(menuKaryawan, false);
+            setNodeVisible(menuLaporanKeuntungan, false);
         }
     }
-
+   
+ 
     @FXML
-    private void toggleMaster() {
+    void toggleMaster(ActionEvent event) {
         toggleSubmenu(submenuMaster, iconMaster);
         setActiveMenu(menuMaster);
     }
-
+ 
     @FXML
-    private void toggleTransaksi() {
+    void toggleTransaksi(ActionEvent event) {
         toggleSubmenu(submenuTransaksi, iconTransaksi);
         setActiveMenu(menuTransaksi);
     }
-
+ 
     @FXML
-    private void toggleInventory() {
+    void toggleInventory(ActionEvent event) {
         toggleSubmenu(submenuInventory, iconInventory);
         setActiveMenu(menuInventory);
     }
-
+ 
     @FXML
-    private void toggleLaporan() {
+    void toggleLaporan(ActionEvent event) {
         toggleSubmenu(submenuLaporan, iconLaporan);
         setActiveMenu(menuLaporan);
     }
+    
+    
+    
+//    private void showPlaceholder(String menuName) {
+//        showForm(null);
+//        lblPageTitle.setText(menuName);
+// 
+//        homeForm.setVisible(true);
+//        homeForm.setManaged(true);
+//    }
 
     private void toggleSubmenu(VBox submenu, FontIcon icon) {
         boolean isVisible = submenu.isVisible();
@@ -155,168 +193,14 @@ public class DashboardController{
         rotate.setToAngle(toAngle);
         rotate.play();
     }
-
-    @FXML
-    private void showDashboard() {
-        setActiveMenu(menuHome);
-        lblPageTitle.setText("Home Dashboard");
-        loadContent("Dashboard.fxml");
-    }
-
-    @FXML
-    private void showUsers() {
-        setActiveSubmenu(menuUsers);
-        lblPageTitle.setText("User Management");
-        loadContent("UserManagement.fxml");
-    }
-
-    @FXML
-    private void showClients() {
-        setActiveSubmenu(menuClients);
-        lblPageTitle.setText("Client Management");
-        loadContent("ClientManagement.fxml");
-    }
-
-    @FXML
-    private void showKaryawan() {
-        setActiveSubmenu(menuKaryawan);
-        lblPageTitle.setText("Karyawan Management");
-        loadContent("KaryawanManagement.fxml");
-    }
-
-    @FXML
-    private void showSupplier() {
-        setActiveSubmenu(menuSupplier);
-        lblPageTitle.setText("Supplier Management");
-        loadContent("SupplierManagement.fxml");
-    }
-
-    @FXML
-    private void showLayanan() {
-        setActiveSubmenu(menuLayanan);
-        lblPageTitle.setText("Jenis Layanan");
-        loadContent("LayananManagement.fxml");
-    }
-
-    @FXML
-    private void showOrder() {
-        setActiveSubmenu(menuOrder);
-        lblPageTitle.setText("Order Management");
-        loadContent("OrderManagement.fxml");
-    }
-
-    @FXML
-    private void showPengerjaan() {
-        setActiveSubmenu(menuPengerjaan);
-        lblPageTitle.setText("Pengerjaan");
-        loadContent("PengerjaanManagement.fxml");
-    }
-
-    @FXML
-    private void showInvoice() {
-        setActiveSubmenu(menuInvoice);
-        lblPageTitle.setText("Invoice");
-        loadContent("InvoiceManagement.fxml");
-    }
-
-    @FXML
-    private void showPembelian() {
-        setActiveSubmenu(menuPembelian);
-        lblPageTitle.setText("Pembelian");
-        loadContent("PembelianManagement.fxml");
-    }
-
-    @FXML
-    private void showPenjualan() {
-        setActiveSubmenu(menuPenjualan);
-        lblPageTitle.setText("Penjualan");
-        loadContent("PenjualanManagement.fxml");
-    }
-
-    @FXML
-    private void showBarang() {
-        setActiveSubmenu(menuBarang);
-        lblPageTitle.setText("Data Barang");
-        loadContent("BarangManagement.fxml");
-    }
-
-    @FXML
-    private void showStokBarang() {
-        setActiveSubmenu(menuStokBarang);
-        lblPageTitle.setText("Stok Barang");
-        loadContent("StokBarangManagement.fxml");
-    }
-
-    @FXML
-    private void showLaporanOrder() {
-        setActiveSubmenu(menuLaporanOrder);
-        lblPageTitle.setText("Laporan Order");
-        loadContent("LaporanOrder.fxml");
-    }
-
-    @FXML
-    private void showLaporanPengerjaan() {
-        setActiveSubmenu(menuLaporanPengerjaan);
-        lblPageTitle.setText("Laporan Pengerjaan");
-        loadContent("LaporanPengerjaan.fxml");
-    }
-
-    @FXML
-    private void showLaporanInvoice() {
-        setActiveSubmenu(menuLaporanInvoice);
-        lblPageTitle.setText("Laporan Invoice");
-        loadContent("LaporanInvoice.fxml");
-    }
-
-    @FXML
-    private void showLaporanPembelian() {
-        setActiveSubmenu(menuLaporanPembelian);
-        lblPageTitle.setText("Laporan Pembelian");
-        loadContent("LaporanPembelian.fxml");
-    }
-
-    @FXML
-    private void showLaporanPenjualan() {
-        setActiveSubmenu(menuLaporanPenjualan);
-        lblPageTitle.setText("Laporan Penjualan");
-        loadContent("LaporanPenjualan.fxml");
-    }
-
-    @FXML
-    private void showLaporanKeuntungan() {
-        setActiveSubmenu(menuLaporanKeuntungan);
-        lblPageTitle.setText("Laporan Keuntungan");
-        loadContent("LaporanKeuntungan.fxml");
-    }
-
-    private void loadContent(String fxmlFile) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/mycompany/metramoelyatama_apps/" + fxmlFile)
-            );
-            Parent content = loader.load();
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(content);
-
-        } catch (Exception e) {
-            System.err.println("❌ Gagal load: " + fxmlFile);
-            e.printStackTrace();
-
-            Label placeholder = new Label("🚧 " + fxmlFile + " belum dibuat");
-            placeholder.setStyle("-fx-font-size: 24px; -fx-text-fill: #9C9A92;");
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(placeholder);
-        }
-    }
-
+    
+    
     private void setActiveMenu(Button activeButton) {
-        menuHome.getStyleClass().remove("active");
-        menuMaster.getStyleClass().remove("active");
-        menuTransaksi.getStyleClass().remove("active");
-        menuInventory.getStyleClass().remove("active");
-        menuLaporan.getStyleClass().remove("active");
-
-        if (activeButton != null) {
+        Button[] mainMenus = {menuHome, menuMaster, menuTransaksi, menuInventory, menuLaporan};
+        for (Button btn : mainMenus) {
+            if (btn != null) btn.getStyleClass().remove("active");
+        }
+        if (activeButton != null && !activeButton.getStyleClass().contains("active")) {
             activeButton.getStyleClass().add("active");
         }
     }
@@ -331,9 +215,22 @@ public class DashboardController{
             });
         }
 
-        if (activeButton != null) {
+        if (activeButton != null && !activeButton.getStyleClass().contains("active")) {
             activeButton.getStyleClass().add("active");
         }
+    }
+    
+    
+    private void setNodeVisible(javafx.scene.Node node, boolean visible) {
+        if (node == null) return;
+        node.setVisible(visible);
+        node.setManaged(visible);
+    }
+    
+    
+    @FXML
+    void handleLogout(ActionEvent event) {
+        handleLogout();
     }
 
     @FXML
@@ -359,7 +256,7 @@ public class DashboardController{
                 Stage stage = (Stage) btnLogout.getScene().getWindow();
                 Scene scene = new Scene(root, 800, 600);
                 scene.getStylesheets().add(
-                    getClass().getResource("/com/mycompany/metramoelyatama_apps/login.css")
+                    getClass().getResource("/com/mycompany/metramoelyatama_apps/Login.css")
                               .toExternalForm()
                 );
 

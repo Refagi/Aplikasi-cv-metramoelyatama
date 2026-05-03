@@ -172,4 +172,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-alignment: center-left;
 }
 
-
+.custom-separator .line {
+    -fx-border-color: #473a40;
+    -fx-border-width: 1.5;
+}
