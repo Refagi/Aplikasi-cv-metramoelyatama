@@ -15,12 +15,12 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@css/Login.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
 
-   <VBox fx:id="rightPanel" alignment="CENTER" layoutX="400.0" layoutY="3.0" prefHeight="600.0" prefWidth="393.0" spacing="30" styleClass="right-panel">
+   <VBox alignment="CENTER" layoutX="400.0" layoutY="3.0" prefHeight="600.0" prefWidth="393.0" spacing="30" styleClass="right-panel">
       <padding>
          <Insets bottom="60" left="60" right="60" top="60" />
       </padding>
 
-      <ImageView fx:id="logoImage" fitHeight="180.0" fitWidth="180.0" preserveRatio="true">
+      <ImageView fitHeight="180.0" fitWidth="180.0" preserveRatio="true">
          <image>
             <Image url="@../../../images/logo2.png" />
          </image>
@@ -30,7 +30,7 @@
 
     </VBox>
 
-   <VBox fx:id="loginFormPanel" alignment="TOP_LEFT" layoutY="6.0" prefHeight="600.0" prefWidth="400.0" spacing="20" styleClass="left-panel">
+   <VBox alignment="TOP_LEFT" layoutY="6.0" prefHeight="600.0" prefWidth="400.0" spacing="20" styleClass="left-panel">
       <padding>
          <Insets bottom="40" left="40" right="40" top="50" />
       </padding>
