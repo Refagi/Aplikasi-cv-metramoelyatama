@@ -1,7 +1,7 @@
 # Aplikasi-cv-metramoelyatama
 Project ini di buat untuk memenuhi tugas matakuliah pemrograman visual
 
-##Anggota Kelompok
+## Anggota Kelompok
 - Reno Faza Givaro (202343501362)
 - Rafli Mulya Hananta (202343501356)
 - Muhammad Kemal Ramadhan (202343501402)
@@ -11,6 +11,5 @@ Project ini di buat untuk memenuhi tugas matakuliah pemrograman visual
 - Sinta Anggraeni Puspita Dewi (202343501360)
 - Rachel Adelia Siburian (202343501355)
 
-##ERD Database
+## ERD Database
 <img src="src/main/resource/images/erd-db-metramoelyatama.png" alt="Db ERD Metramoelyatama" width="300"/>
->>>>>>> f9d3e3d (edit readme.md)
