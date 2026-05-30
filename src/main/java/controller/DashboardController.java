@@ -254,11 +254,7 @@ public class DashboardController implements Initializable {
                 Parent root = loader.load();
 
                 Stage stage = (Stage) btnLogout.getScene().getWindow();
-                Scene scene = new Scene(root, 800, 600);
-                scene.getStylesheets().add(
-                    getClass().getResource("/com/mycompany/metramoelyatama_apps/Login.css")
-                              .toExternalForm()
-                );
+                Scene scene = new Scene(root);
 
                 stage.setScene(scene);
                 stage.centerOnScreen();
