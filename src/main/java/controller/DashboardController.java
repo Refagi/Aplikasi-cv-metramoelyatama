@@ -109,6 +109,12 @@ public class DashboardController implements Initializable {
             lblPageTitle.setText("Data Karyawan");
             setActiveSubmenu(menuKaryawan);
         });
+        
+        menuLayanan.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Master/JenisLayanan.fxml");
+            lblPageTitle.setText("Data Jenis Layanan");
+            setActiveSubmenu(menuLayanan);
+        });
     }
     
     private void loadPage(String fxml) {
