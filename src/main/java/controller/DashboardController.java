@@ -109,6 +109,12 @@ public class DashboardController implements Initializable {
             lblPageTitle.setText("Data Karyawan");
             setActiveSubmenu(menuKaryawan);
         });
+        
+        menuLayanan.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Master/JenisLayanan.fxml");
+            lblPageTitle.setText("Data Jenis Layanan");
+            setActiveSubmenu(menuLayanan);
+        });
     }
     
     private void loadPage(String fxml) {
@@ -254,11 +260,7 @@ public class DashboardController implements Initializable {
                 Parent root = loader.load();
 
                 Stage stage = (Stage) btnLogout.getScene().getWindow();
-                Scene scene = new Scene(root, 800, 600);
-                scene.getStylesheets().add(
-                    getClass().getResource("/com/mycompany/metramoelyatama_apps/Login.css")
-                              .toExternalForm()
-                );
+                Scene scene = new Scene(root);
 
                 stage.setScene(scene);
                 stage.centerOnScreen();

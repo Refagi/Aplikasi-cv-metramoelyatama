@@ -18,4 +18,3 @@ nbdist/
 # OS
 .DS_Store
 Thumbs.db
-/src/main/resources/.env

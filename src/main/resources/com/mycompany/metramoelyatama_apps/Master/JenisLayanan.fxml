@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane stylesheets="@../css/Dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.JenisLayananController">
+                <AnchorPane fx:id="masterLayanan" layoutX="17.0" layoutY="14.0" prefHeight="844.0" prefWidth="1199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="14.0" layoutY="58.0" prefHeight="781.0" prefWidth="435.0">
+                     <styleClass>
+                        <String fx:value="bg-second" />
+                        <String fx:value="bg-shadow" />
+                     </styleClass>
+                     <children>
+                        <Label layoutX="49.0" layoutY="17.0" styleClass="brand-title" text="Input Data Jenis Layanan" textFill="#5f5157" />
+                        <FontIcon iconLiteral="fas-cogs" iconSize="20" layoutX="14.0" layoutY="37.0" />
+                        <VBox layoutX="9.0" layoutY="60.0" prefHeight="633.0" prefWidth="419.0" spacing="7.0">
+                           <children>
+                              <Label layoutX="10.0" layoutY="10.0" prefHeight="22.0" prefWidth="120.0" styleClass="field-label" text="Nama Layanan" />
+                              <TextField fx:id="txtnamaLayanan" layoutX="10.0" layoutY="42.0" prefHeight="50.0" prefWidth="399.0" promptText="Catering Prasmanan / Sewa Tenda" styleClass="input-field" />
+                              <Label layoutX="10.0" layoutY="272.0" prefHeight="22.0" prefWidth="103.0" styleClass="field-label" text="Deskripsi" />
+                              <TextArea fx:id="txtdescLayanan" prefHeight="87.0" prefWidth="410.0" promptText="Deskripsi layanan..." styleClass="input-area" />
+                     <Label layoutX="20.0" layoutY="219.0" prefHeight="22.0" prefWidth="122.0" styleClass="field-label" text="Kategori" />
+                     <ComboBox fx:id="cmbkategoriLayanan" prefHeight="46.0" prefWidth="408.0" styleClass="input-field" />
+                              <Label layoutX="10.0" layoutY="236.0" prefHeight="22.0" prefWidth="122.0" styleClass="field-label" text="satuan" />
+                     <ComboBox fx:id="cmbsatuanLayanan" layoutX="20.0" layoutY="248.0" prefHeight="46.0" prefWidth="408.0" styleClass="input-field" />
+                              <Label layoutX="10.0" layoutY="425.0" prefHeight="22.0" prefWidth="122.0" styleClass="field-label" text="Tarif (Rp)" />
+                              <TextField fx:id="txttarifLayanan" layoutX="10.0" layoutY="454.0" prefHeight="50.0" prefWidth="404.0" promptText="45000" styleClass="input-field" />
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </VBox>
+                        <HBox layoutX="14.0" layoutY="715.0" prefHeight="40.0" prefWidth="418.0" spacing="3.0">
+                           <children>
+                              <Button fx:id="btnsaveLayanan" mnemonicParsing="false" onAction="#btnsaveLayanan" styleClass="btn-primary" text="Simpan">
+                                 <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="fas-save" iconSize="16" text="" wrappingWidth="18.0" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnupdateLayanan" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnupdateLayanan" styleClass="btn-thirdty" text="Ubah">
+                                 <graphic>
+                                    <FontIcon iconColor="#473a40" iconLiteral="fas-edit" iconSize="16" text="" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btndeleteLayanan" layoutX="92.0" layoutY="10.0" mnemonicParsing="false" onAction="#btndeleteLayanan" styleClass="btn-secondary" text="Hapus">
+                                 <graphic>
+                                    <FontIcon  iconColor="#ba1a1a" iconLiteral="fas-trash" iconSize="16" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnresetLayanan" layoutX="106.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnresetLayanan" styleClass="btn-thirdty" text="Reset">
+                                 <graphic>
+                                    <FontIcon iconColor="#473a40" iconLiteral="fas-undo" iconSize="16" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="460.0" layoutY="58.0" prefHeight="687.0" prefWidth="729.0">
+                     <styleClass>
+                        <String fx:value="bg-second" />
+                        <String fx:value="bg-shadow" />
+                     </styleClass>
+                     <children>
+                        <Label layoutX="14.0" layoutY="27.0" styleClass="brand-title" text="Table Jenis Layanan" textFill="#5f5157" />
+                        <TableView fx:id="tblLayanan" layoutX="11.0" layoutY="72.0" prefHeight="600.0" prefWidth="713.0" styleClass="custom-table">
+                          <columns>
+                            <TableColumn fx:id="clmidLayanan" prefWidth="93.0" text="Id" />
+                            <TableColumn fx:id="clmnamaLayanan" prefWidth="124.0" text="Nama" />
+                              <TableColumn fx:id="clmdescLayanan" prefWidth="143.0" text="Deskripsi" />
+                              <TableColumn fx:id="clmkategoriLayanan" prefWidth="134.0" text="Kategori" />
+                              <TableColumn fx:id="clmsatuanLayanan" prefWidth="97.0" text="Satuan" />
+                     <TableColumn fx:id="clmtarifLayanan" prefWidth="120.0" text="Tarif" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="txtcariLayanan" layoutX="520.0" layoutY="21.0" promptText="search..." styleClass="search-field" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="lblPageTitle1" layoutX="14.0" prefHeight="29.0" prefWidth="176.0" styleClass="user-title" text="Data Jenis Layanan" textFill="#5f5157" />
+                  <Label fx:id="lblPageTitle11" layoutX="14.0" layoutY="29.0" prefHeight="29.0" prefWidth="176.0" styleClass="user-subtitle" text="Kelola Data Jenis Layanan" textFill="#5f5157" />
+               </children>
+            </AnchorPane>
+</AnchorPane>
