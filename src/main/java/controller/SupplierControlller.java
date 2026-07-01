@@ -21,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import models.Supplier;
 import utils.DBConnection;
 
-public class SupplierController implements Initializable {
+public class SupplierControlller implements Initializable {
 
     @FXML private TextField txtnamaSupplier;
     @FXML private TextField txtemailSupplier;
