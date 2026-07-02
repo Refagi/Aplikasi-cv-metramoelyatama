@@ -9,9 +9,12 @@ module com.mycompany.metramoelyatama_apps {
 
     exports com.mycompany.metramoelyatama_apps;
     exports controller;
+    exports controller.laporan;
     exports models;
 
     opens com.mycompany.metramoelyatama_apps to javafx.fxml;
     opens controller to javafx.fxml;
+    opens controller.laporan to javafx.fxml;
     opens models to javafx.base, javafx.fxml;
+    opens models.laporan to javafx.base, javafx.fxml;
 }

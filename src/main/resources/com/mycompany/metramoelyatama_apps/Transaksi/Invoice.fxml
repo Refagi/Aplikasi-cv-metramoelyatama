@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="844.0" prefWidth="1385.0" stylesheets="@../css/Dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KaryawanController">
+<AnchorPane stylesheets="@../css/Dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KaryawanController">
     <AnchorPane fx:id="masterKaryawan" layoutX="10.0" layoutY="10.0" prefHeight="849.0" prefWidth="1199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="820.0" prefWidth="434.0">
@@ -39,22 +39,22 @@
                         </VBox>
                         <HBox layoutX="14.0" layoutY="759.0" prefHeight="40.0" prefWidth="418.0" spacing="3.0">
                            <children>
-                              <Button fx:id="btnsaveKaryawan" mnemonicParsing="false" onAction="#btnsaveKaryawan" styleClass="btn-primary-kry" text="Simpan">
+                              <Button fx:id="btnsaveKaryawan" onAction="#btnsaveKaryawan" mnemonicParsing="false" styleClass="btn-primary-kry" text="Simpan">
                                  <graphic>
                                     <FontIcon iconColor="WHITE" iconLiteral="fas-save" iconSize="16" text="" wrappingWidth="18.0" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnupdateKaryawan" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnupdateKaryawan" styleClass="btn-thirdty-kry" text="Ubah">
+                              <Button fx:id="btnupdateKaryawan" onAction="#btnupdateKaryawan" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-thirdty-kry" text="Ubah">
                                  <graphic>
                                     <FontIcon iconColor="#473a40" iconLiteral="fas-edit" iconSize="16" text="" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="btndeleteKaryawan" layoutX="92.0" layoutY="10.0" mnemonicParsing="false" onAction="#btndeleteKaryawan" styleClass="btn-secondary-kry" text="Hapus">
+                              <Button fx:id="btndeleteKaryawan" onAction="#btndeleteKaryawan" layoutX="92.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-secondary-kry" text="Hapus">
                                  <graphic>
                                     <FontIcon iconColor="#ba1a1a" iconLiteral="fas-trash" iconSize="16" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnresetKaryawan" layoutX="106.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnresetKaryawan" styleClass="btn-thirdty-kry" text="Reset">
+                              <Button fx:id="btnresetKaryawan" onAction="#btnresetKaryawan" layoutX="106.0" layoutY="15.0" mnemonicParsing="false" styleClass="btn-thirdty-kry" text="Reset">
                                  <graphic>
                                     <FontIcon iconColor="#473a40" iconLiteral="fas-undo" iconSize="16" />
                                  </graphic>
@@ -92,35 +92,35 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="455.0" layoutY="7.0" prefHeight="820.0" prefWidth="920.0">
+                  <AnchorPane layoutX="455.0" layoutY="7.0" prefHeight="820.0" prefWidth="730.0">
                      <styleClass>
                         <String fx:value="bg-second" />
                         <String fx:value="bg-shadow" />
                      </styleClass>
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" styleClass="brand-title" text="Table Akun Karyawan" textFill="#5f5157" />
-                        <TableView fx:id="tbluserKaryawan" layoutX="9.0" layoutY="59.0" prefHeight="320.0" prefWidth="900.0" styleClass="custom-table">
+                        <TableView fx:id="tbluserKaryawan" layoutX="9.0" layoutY="59.0" prefHeight="320.0" prefWidth="715.0" styleClass="custom-table">
                            <columns>
-                               <TableColumn fx:id="clmiduserKaryawan" prefWidth="141.0" text="ID" />
-                              <TableColumn fx:id="clmemailuserKaryawan" prefWidth="170.0" text="Email" />
-                              <TableColumn fx:id="clmpassworduserKaryawan" prefWidth="222.0" text="Password" />
-                              <TableColumn fx:id="clmstatususerKaryawan" prefWidth="198.0" text="Status" />
-                              <TableColumn fx:id="clmroleuserKaryawan" prefWidth="167.0" text="Role" />
+                              <TableColumn fx:id="clmiduserKaryawan" prefWidth="109.0" text="Id" />
+                              <TableColumn fx:id="clmemailuserKaryawan" prefWidth="168.0" text="Email" />
+                              <TableColumn fx:id="clmpassworduserKaryawan" prefWidth="156.0" text="Password" />
+                              <TableColumn fx:id="clmstatususerKaryawan" prefWidth="137.0" text="Status" />
+                              <TableColumn fx:id="clmroleuserKaryawan" prefWidth="143.0" text="Role" />
                            </columns>
                         </TableView>
-                        <TextField fx:id="txtcariuserKaryawan" layoutX="715.0" layoutY="8.0" promptText="search..." styleClass="search-field" />
-                        <Separator layoutX="11.0" layoutY="397.0" prefHeight="11.0" prefWidth="900.0" styleClass="custom-separator-kry" />
+                        <TextField fx:id="txtcariKaryawan" layoutX="514.0" layoutY="14.0" promptText="search..." styleClass="search-field" />
+                        <Separator layoutX="11.0" layoutY="397.0" prefHeight="11.0" prefWidth="712.0" styleClass="custom-separator-kry" />
                         <Label layoutX="14.0" layoutY="432.0" styleClass="brand-title" text="Table Data Karyawan" textFill="#5f5157" />
-                        <TableView fx:id="tblKaryawan" layoutX="9.0" layoutY="477.0" prefHeight="320.0" prefWidth="900.0" styleClass="custom-table">
+                        <TableView fx:id="tblClient11" layoutX="9.0" layoutY="477.0" prefHeight="320.0" prefWidth="715.0" styleClass="custom-table">
                            <columns>
-                              <TableColumn fx:id="clmidKaryawan" prefWidth="166.0" text="ID" />
-                              <TableColumn fx:id="clmnamaKaryawan" prefWidth="137.0" text="Nama" />
-                              <TableColumn fx:id="clmjabatanKaryawan" prefWidth="208.0" text="Jabatan" />
-                              <TableColumn fx:id="clmnoKaryawan" prefWidth="203.0" text="No.Telp" />
-                              <TableColumn fx:id="clmtglKaryawan" prefWidth="184.0" text="Tgl Masuk" />
+                              <TableColumn fx:id="clmidKaryawan" prefWidth="121.0" text="Id" />
+                              <TableColumn fx:id="clmnamaKaryawan" prefWidth="128.0" text="Nama" />
+                              <TableColumn fx:id="clmjabatanKaryawan" prefWidth="157.0" text="Jabatan" />
+                              <TableColumn fx:id="clmnoKaryawan" prefWidth="170.0" text="No.Telp" />
+                              <TableColumn fx:id="clmtglKaryawan" prefWidth="137.0" text="Tgl Masuk" />
                            </columns>
                         </TableView>
-                        <TextField fx:id="txtcariKaryawan" layoutX="718.0" layoutY="426.0" promptText="search..." styleClass="search-field" />
+                        <TextField fx:id="txtcariClient11" layoutX="513.0" layoutY="426.0" promptText="search..." styleClass="search-field" />
                      </children>
                   </AnchorPane>
                </children>

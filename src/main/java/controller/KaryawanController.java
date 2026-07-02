@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import java.net.URL;
@@ -36,7 +32,7 @@ public class KaryawanController implements Initializable {
     @FXML private Button btnsaveKaryawan;
     @FXML private Button btnupdateKaryawan;
     @FXML private Button btndeleteKaryawan;
-    @FXML private Button btnresetkaryawan;
+    @FXML private Button btnresetKaryawan;
 
     @FXML private TableView<UserAkun>           tbluserKaryawan;
     @FXML private TableColumn<UserAkun, String> clmiduserKaryawan;
@@ -44,15 +40,15 @@ public class KaryawanController implements Initializable {
     @FXML private TableColumn<UserAkun, String> clmpassworduserKaryawan;
     @FXML private TableColumn<UserAkun, String> clmstatususerKaryawan;
     @FXML private TableColumn<UserAkun, String> clmroleuserKaryawan;
-    @FXML private TextField                     txtcariKaryawan;
+    @FXML private TextField                     txtcariuserKaryawan;
 
-    @FXML private TableView<Karyawan>           tblClient11;
+    @FXML private TableView<Karyawan>           tblKaryawan;
     @FXML private TableColumn<Karyawan, String> clmidKaryawan;
     @FXML private TableColumn<Karyawan, String> clmnamaKaryawan;
     @FXML private TableColumn<Karyawan, String> clmjabatanKaryawan;
     @FXML private TableColumn<Karyawan, String> clmnoKaryawan;
     @FXML private TableColumn<Karyawan, String> clmtglKaryawan;
-    @FXML private TextField                     txtcariClient11;
+    @FXML private TextField                     txtcariKaryawan;
 
     private ObservableList<UserAkun> daftarUser     = FXCollections.observableArrayList();
     private ObservableList<Karyawan> daftarKaryawan = FXCollections.observableArrayList();
@@ -102,10 +98,6 @@ public class KaryawanController implements Initializable {
         clmtglKaryawan.setCellValueFactory(new PropertyValueFactory<>("tglMasuk"));
     }
 
-    /**
-     * Klik baris di tabel USER → isi form bagian akun login.
-     * Cari data karyawan yang userId-nya cocok lalu isi form karyawan juga.
-     */
     private void setupTableUserClick() {
         tbluserKaryawan.getSelectionModel().selectedItemProperty()
             .addListener((obs, oldVal, newVal) -> {
@@ -119,12 +111,8 @@ public class KaryawanController implements Initializable {
             });
     }
 
-    /**
-     * Klik baris di tabel KARYAWAN → isi form karyawan.
-     * Cari akun user yang cocok lalu isi form akun juga.
-     */
     private void setupTableKaryawanClick() {
-        tblClient11.getSelectionModel().selectedItemProperty()
+        tblKaryawan.getSelectionModel().selectedItemProperty()
             .addListener((obs, oldVal, newVal) -> {
                 if (newVal != null) {
                     isiFormKaryawan(newVal);
@@ -138,7 +126,7 @@ public class KaryawanController implements Initializable {
 
     private void setupSearch() {
         filterUser = new FilteredList<>(daftarUser, p -> true);
-        txtcariKaryawan.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtcariuserKaryawan.textProperty().addListener((obs, oldVal, newVal) -> {
             filterUser.setPredicate(u -> {
                 if (newVal == null || newVal.isEmpty()) return true;
                 String kw = newVal.toLowerCase();
@@ -150,7 +138,7 @@ public class KaryawanController implements Initializable {
         tbluserKaryawan.setItems(filterUser);
 
         filterKaryawan = new FilteredList<>(daftarKaryawan, p -> true);
-        txtcariClient11.textProperty().addListener((obs, oldVal, newVal) -> {
+        txtcariKaryawan.textProperty().addListener((obs, oldVal, newVal) -> {
             filterKaryawan.setPredicate(k -> {
                 if (newVal == null || newVal.isEmpty()) return true;
                 String kw = newVal.toLowerCase();
@@ -159,7 +147,7 @@ public class KaryawanController implements Initializable {
                     || (k.getNoTelp() != null && k.getNoTelp().toLowerCase().contains(kw));
             });
         });
-        tblClient11.setItems(filterKaryawan);
+        tblKaryawan.setItems(filterKaryawan);
     }
 
 
@@ -410,7 +398,7 @@ public class KaryawanController implements Initializable {
         txttglKaryawan.setValue(null);
 
         tbluserKaryawan.getSelectionModel().clearSelection();
-        tblClient11.getSelectionModel().clearSelection();
+        tblKaryawan.getSelectionModel().clearSelection();
 
         btnsaveKaryawan.setDisable(false);
         btnupdateKaryawan.setDisable(true);
