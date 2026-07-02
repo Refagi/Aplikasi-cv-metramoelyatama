@@ -27,7 +27,7 @@ public class App extends Application {
 
         loadingStage.show();
         
-        System.out.println("✅ Loading screen berhasil ditampilkan!");
+        System.out.println("Loading screen berhasil ditampilkan!");
     }
 
     public static void main(String[] args) {

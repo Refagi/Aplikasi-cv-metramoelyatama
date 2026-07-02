@@ -1,8 +1,4 @@
 package controller;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,74 +20,61 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
-    
+
 public class DashboardController implements Initializable {
-    
+
     @FXML private StackPane mainForm;
- 
-    // Top Bar
+
     @FXML private Label lblPageTitle;
     @FXML private Label lblPageTitle1;
     @FXML private Label lblPageTitle11;
     @FXML private Label lblUserName;
     @FXML private Label lblUserRole;
- 
-    // Sidebar menu buttons
+
     @FXML private Button menuHome;
     @FXML private Button menuMaster;
     @FXML private Button menuTransaksi;
     @FXML private Button menuInventory;
     @FXML private Button menuLaporan;
- 
-    // Sub-menu containers
+
     @FXML private VBox submenuMaster;
     @FXML private VBox submenuTransaksi;
     @FXML private VBox submenuInventory;
     @FXML private VBox submenuLaporan;
- 
-    // Sub-menu icons (chevron)
+
     @FXML private FontIcon iconMaster;
     @FXML private FontIcon iconTransaksi;
-    @FXML private FontIcon iconInventory;
     @FXML private FontIcon iconLaporan;
- 
-    // Master sub-menu items
+
     @FXML private Button menuClients;
     @FXML private Button menuKaryawan;
     @FXML private Button menuSupplier;
     @FXML private Button menuLayanan;
- 
-    // Transaksi sub-menu items
+    @FXML private Button menuBarang;
+
     @FXML private Button menuOrder;
     @FXML private Button menuPengerjaan;
     @FXML private Button menuInvoice;
     @FXML private Button menuPembelian;
     @FXML private Button menuPenjualan;
- 
-    // Inventory sub-menu items
-    @FXML private Button menuBarang;
-    @FXML private Button menuStokBarang;
- 
-    // Laporan sub-menu items
+
     @FXML private Button menuLaporanOrder;
     @FXML private Button menuLaporanPengerjaan;
     @FXML private Button menuLaporanInvoice;
     @FXML private Button menuLaporanPembelian;
-    @FXML private Button menuLaporanPenjualan;
     @FXML private Button menuLaporanKeuntungan;
- 
-    // Logout
-    @FXML private Button btnLogout; 
- 
+
+    @FXML private Button btnLogout;
+
     private String userId;
     private String userName;
     private String userRole;
-    
-    
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadPage("/com/mycompany/metramoelyatama_apps/Master/Home.fxml");
-        
+
         menuHome.setOnAction(e -> {
             loadPage("/com/mycompany/metramoelyatama_apps/Master/Home.fxml");
             lblPageTitle.setText("Home Dashboard");
@@ -109,14 +92,76 @@ public class DashboardController implements Initializable {
             lblPageTitle.setText("Data Karyawan");
             setActiveSubmenu(menuKaryawan);
         });
-        
+
+        menuSupplier.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Master/Supplier.fxml");
+            lblPageTitle.setText("Data Supplier");
+            setActiveSubmenu(menuSupplier);
+        });
+
+
         menuLayanan.setOnAction(e -> {
             loadPage("/com/mycompany/metramoelyatama_apps/Master/JenisLayanan.fxml");
             lblPageTitle.setText("Data Jenis Layanan");
             setActiveSubmenu(menuLayanan);
         });
+        
+        menuBarang.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Master/Barang.fxml");
+            lblPageTitle.setText("Data Barang");
+            setActiveSubmenu(menuBarang);
+        });
+        
+        menuOrder.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Transaksi/Order.fxml");
+            lblPageTitle.setText("Data Orders");
+            setActiveSubmenu(menuOrder);
+        });
+        
+        menuPengerjaan.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Transaksi/Pengerjaan.fxml");
+            lblPageTitle.setText("Data Pengerjaan");
+            setActiveSubmenu(menuPengerjaan);
+        });
+        
+        menuInvoice.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Transaksi/Invoice.fxml");
+            lblPageTitle.setText("Data Invoice");
+            setActiveSubmenu(menuInvoice);
+        });
+        
+        menuPembelian.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Transaksi/Pembelian.fxml");
+            lblPageTitle.setText("Data Pembelian");
+            setActiveSubmenu(menuPembelian);
+        });
+        
+        menuLaporanOrder.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Laporan/LaporanOrder.fxml");
+            lblPageTitle.setText("Laporan Order");
+            setActiveSubmenu(menuLaporanOrder);
+        });
+        
+        menuLaporanPengerjaan.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Laporan/LaporanPengerjaan.fxml");
+            lblPageTitle.setText("Laporan Pengerjaan");
+            setActiveSubmenu(menuLaporanPengerjaan);
+        });
+        
+        menuLaporanInvoice.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Laporan/LaporanInvoice.fxml");
+            lblPageTitle.setText("Laporan Invoice");
+            setActiveSubmenu(menuLaporanInvoice);
+        });
+        
+        menuLaporanPembelian.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Laporan/LaporanPembelian.fxml");
+            lblPageTitle.setText("Laporan Pembelian");
+            setActiveSubmenu(menuLaporanPembelian);
+        });
+
     }
-    
+
     private void loadPage(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
@@ -129,7 +174,7 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void setUserData(String userId, String nama, String role) {
         this.userId = userId;
         this.userName = nama;
@@ -145,40 +190,36 @@ public class DashboardController implements Initializable {
         if ("Karyawan".equals(role)) {
             setNodeVisible(menuKaryawan, false);
             setNodeVisible(menuLaporanKeuntungan, false);
+            setNodeVisible(menuInvoice, false);
+            setNodeVisible(menuPembelian, false);
         }
     }
-   
- 
+
+
     @FXML
     void toggleMaster(ActionEvent event) {
         toggleSubmenu(submenuMaster, iconMaster);
         setActiveMenu(menuMaster);
     }
- 
+
     @FXML
     void toggleTransaksi(ActionEvent event) {
         toggleSubmenu(submenuTransaksi, iconTransaksi);
         setActiveMenu(menuTransaksi);
     }
- 
-    @FXML
-    void toggleInventory(ActionEvent event) {
-        toggleSubmenu(submenuInventory, iconInventory);
-        setActiveMenu(menuInventory);
-    }
- 
+
     @FXML
     void toggleLaporan(ActionEvent event) {
         toggleSubmenu(submenuLaporan, iconLaporan);
         setActiveMenu(menuLaporan);
     }
-    
-    
-    
+
+
+
 //    private void showPlaceholder(String menuName) {
 //        showForm(null);
 //        lblPageTitle.setText(menuName);
-// 
+//
 //        homeForm.setVisible(true);
 //        homeForm.setManaged(true);
 //    }
@@ -199,10 +240,10 @@ public class DashboardController implements Initializable {
         rotate.setToAngle(toAngle);
         rotate.play();
     }
-    
-    
+
+
     private void setActiveMenu(Button activeButton) {
-        Button[] mainMenus = {menuHome, menuMaster, menuTransaksi, menuInventory, menuLaporan};
+        Button[] mainMenus = {menuHome, menuMaster, menuTransaksi, menuLaporan};
         for (Button btn : mainMenus) {
             if (btn != null) btn.getStyleClass().remove("active");
         }
@@ -212,7 +253,7 @@ public class DashboardController implements Initializable {
     }
 
     private void setActiveSubmenu(Button activeButton) {
-        VBox[] allSubmenus = {submenuMaster, submenuTransaksi, submenuInventory, submenuLaporan};
+        VBox[] allSubmenus = {submenuMaster, submenuTransaksi, submenuLaporan};
         for (VBox submenu : allSubmenus) {
             submenu.getChildren().forEach(node -> {
                 if (node instanceof Button) {
@@ -225,15 +266,15 @@ public class DashboardController implements Initializable {
             activeButton.getStyleClass().add("active");
         }
     }
-    
-    
+
+
     private void setNodeVisible(javafx.scene.Node node, boolean visible) {
         if (node == null) return;
         node.setVisible(visible);
         node.setManaged(visible);
     }
-    
-    
+
+
     @FXML
     void handleLogout(ActionEvent event) {
         handleLogout();
