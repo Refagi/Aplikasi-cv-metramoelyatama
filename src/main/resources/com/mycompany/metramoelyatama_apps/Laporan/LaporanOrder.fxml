@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane stylesheets="@../css/Dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.laporan.LaporanOrderController">
+
+    <AnchorPane fx:id="masterLaporanOrder" prefHeight="844.0" prefWidth="1199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+
+            <Label layoutX="14.0" layoutY="6.0" prefHeight="29.0" prefWidth="200.0" styleClass="user-title" text="Laporan Order" textFill="#5f5157" />
+            <Label layoutX="14.0" layoutY="29.0" prefHeight="29.0" prefWidth="260.0" styleClass="user-subtitle" text="Cetak Riwayat Order" textFill="#5f5157" />
+
+            <AnchorPane layoutX="14.0" layoutY="58.0" prefHeight="100.0" prefWidth="1170.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="30.0" spacing="20.0">
+                        <children>
+                            <DatePicker fx:id="txtdariOrder" prefHeight="42.0" prefWidth="160.0" promptText="Tgl Mulai" styleClass="date-picker-field" />
+                            <DatePicker fx:id="txtsampaiOrder" prefHeight="42.0" prefWidth="160.0" promptText="Tgl Selesai" styleClass="date-picker-field" />
+                            <ComboBox fx:id="cmbstatusFilterOrder" prefHeight="42.0" prefWidth="180.0" promptText="Semua Status" styleClass="input-field" />
+                            <Button fx:id="btntampilkanOrder" onAction="#btntampilkanOrder" prefHeight="42.0" prefWidth="140.0" styleClass="btn-primary" text="Tampilkan">
+                                <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="fas-search" iconSize="14" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="btnexportOrder" onAction="#btnexportOrder" prefHeight="42.0" prefWidth="160.0" styleClass="btn-thirdty" text="Export PDF">
+                                <graphic>
+                                    <FontIcon iconColor="#473a40" iconLiteral="fas-file-pdf" iconSize="14" />
+                                </graphic>
+                            </Button>
+                        </children>
+                    </HBox>
+                </children>
+            </AnchorPane>
+
+            <AnchorPane layoutX="14.0" layoutY="168.0" prefHeight="70.0" prefWidth="1170.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <HBox layoutX="20.0" layoutY="20.0" spacing="60.0">
+                        <children>
+                            <Label fx:id="lblTotalOrder" styleClass="result-card-top" text="Total Order: 0" textFill="#5f5157" />
+                            <Label fx:id="lblTotalNilaiOrder" styleClass="result-card-top" text="Total Nilai: Rp 0" textFill="#5f5157" />
+                        </children>
+                    </HBox>
+                </children>
+            </AnchorPane>
+
+            <AnchorPane layoutX="14.0" layoutY="248.0" prefHeight="580.0" prefWidth="1170.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <Label layoutX="14.0" layoutY="14.0" styleClass="brand-title" text="Preview Data" textFill="#5f5157" />
+
+                    <TableView fx:id="tblLaporanOrder" layoutX="9.0" layoutY="50.0" prefHeight="520.0" prefWidth="1150.0" styleClass="custom-table">
+                        <columns>
+                            <TableColumn fx:id="clmnoOrder" prefWidth="60.0" text="No" />
+                            <TableColumn fx:id="clmidOrder" prefWidth="130.0" text="Id Order" />
+                            <TableColumn fx:id="clmclientOrder" prefWidth="200.0" text="Client" />
+                            <TableColumn fx:id="clmkaryawanOrder" prefWidth="180.0" text="Karyawan PJ" />
+                            <TableColumn fx:id="clmtglOrder" prefWidth="169.0" text="Tgl Order" />
+                            <TableColumn fx:id="clmstatusOrder" prefWidth="175.0" text="Status" />
+                            <TableColumn fx:id="clmtotalOrder" prefWidth="234.0" text="Total Nilai" />
+                        </columns>
+                    </TableView>
+                </children>
+            </AnchorPane>
+
+        </children>
+    </AnchorPane>
+</AnchorPane>

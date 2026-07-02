@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane stylesheets="@../css/Dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.laporan.LaporanPembelianController">
+
+    <AnchorPane fx:id="masterLaporanPembelian" prefHeight="844.0" prefWidth="1199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+
+            <Label layoutX="14.0" prefHeight="29.0" prefWidth="220.0" styleClass="user-title" text="Laporan Pembelian" textFill="#5f5157" />
+            <Label layoutX="14.0" layoutY="29.0" prefHeight="29.0" prefWidth="280.0" styleClass="user-subtitle" text="Cetak Riwayat Pembelian Barang" textFill="#5f5157" />
+
+            <AnchorPane layoutX="14.0" layoutY="58.0" prefHeight="100.0" prefWidth="1170.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="30.0" spacing="20.0">
+                        <children>
+                            <DatePicker fx:id="txtdariPembelian" prefHeight="42.0" prefWidth="160.0" promptText="Tgl Mulai" styleClass="date-picker-field" />
+                            <DatePicker fx:id="txtsampaiPembelian" prefHeight="42.0" prefWidth="160.0" promptText="Tgl Selesai" styleClass="date-picker-field" />
+                            <ComboBox fx:id="cmbsupplierFilterPembelian" prefHeight="42.0" prefWidth="200.0" promptText="Semua Supplier" styleClass="input-field" />
+                            <Button fx:id="btntampilkanPembelian" onAction="#btntampilkanPembelian" prefHeight="42.0" prefWidth="140.0" styleClass="btn-primary" text="Tampilkan">
+                                <graphic>
+                                    <FontIcon iconColor="WHITE" iconLiteral="fas-search" iconSize="14" />
+                                </graphic>
+                            </Button>
+                            <Button fx:id="btnexportPembelian" onAction="#btnexportPembelian" prefHeight="42.0" prefWidth="160.0" styleClass="btn-thirdty" text="Export PDF">
+                                <graphic>
+                                    <FontIcon iconColor="#473a40" iconLiteral="fas-file-pdf" iconSize="14" />
+                                </graphic>
+                            </Button>
+                        </children>
+                    </HBox>
+                </children>
+            </AnchorPane>
+
+            <AnchorPane layoutX="14.0" layoutY="168.0" prefHeight="70.0" prefWidth="1170.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <HBox layoutX="20.0" layoutY="20.0" spacing="60.0">
+                        <children>
+                            <Label fx:id="lblTotalPembelian" styleClass="result-card-top" text="Total Transaksi: 0" textFill="#5f5157" />
+                            <Label fx:id="lblTotalNilaiPembelian" styleClass="result-card-top" text="Total Pengeluaran: Rp 0" textFill="#5f5157" />
+                        </children>
+                    </HBox>
+                </children>
+            </AnchorPane>
+
+            <AnchorPane layoutX="14.0" layoutY="248.0" prefHeight="580.0" prefWidth="1170.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <Label layoutX="14.0" layoutY="14.0" styleClass="brand-title" text="Preview Data Pembelian" textFill="#5f5157" />
+
+                    <TableView fx:id="tblLaporanPembelian" layoutX="9.0" layoutY="50.0" prefHeight="280.0" prefWidth="1150.0" styleClass="custom-table">
+                        <columns>
+                            <TableColumn fx:id="clmnoPembelian" prefWidth="50.0" text="No" />
+                            <TableColumn fx:id="clmfakturPembelian" prefWidth="150.0" text="No Faktur" />
+                            <TableColumn fx:id="clmtglPembelian" prefWidth="157.0" text="Tanggal" />
+                            <TableColumn fx:id="clmsupplierPembelian" prefWidth="252.0" text="Supplier" />
+                            <TableColumn fx:id="clmkaryawanPembelian" prefWidth="258.0" text="Karyawan" />
+                            <TableColumn fx:id="clmtotalPembelian" prefWidth="281.0" text="Total" />
+                        </columns>
+                    </TableView>
+
+                    <Separator layoutX="9.0" layoutY="340.0" prefWidth="1150.0" />
+
+                    <Label layoutX="14.0" layoutY="355.0" styleClass="brand-title" text="Detail Barang (klik baris di atas)" textFill="#5f5157" />
+
+                    <TableView fx:id="tblDetailLaporanPembelian" layoutX="9.0" layoutY="390.0" prefHeight="180.0" prefWidth="1150.0" styleClass="custom-table">
+                        <columns>
+                            <TableColumn fx:id="clmnamaBarangDetail" prefWidth="350.0" text="Nama Barang" />
+                            <TableColumn fx:id="clmqtyDetail" prefWidth="234.0" text="Qty" />
+                            <TableColumn fx:id="clmhargaDetail" prefWidth="296.0" text="Harga Satuan" />
+                            <TableColumn fx:id="clmsubtotalDetail" prefWidth="268.0" text="Subtotal" />
+                        </columns>
+                    </TableView>
+                </children>
+            </AnchorPane>
+
+        </children>
+    </AnchorPane>
+</AnchorPane>
