@@ -54,7 +54,7 @@
                      </styleClass>
                      <children>
                         <FontIcon iconColor="#473a40" iconLiteral="fas-money-bill-wave" iconSize="35" layoutX="31.0" layoutY="71.0" />
-                        <Label layoutX="31.0" layoutY="75.0" prefHeight="35.0" prefWidth="285.0" styleClass="title-card-top" text="Data Penjualan" textFill="#5f5157">
+                        <Label layoutX="31.0" layoutY="75.0" prefHeight="35.0" prefWidth="285.0" styleClass="title-card-top" text="Total Pemasukan Bulan Ini" textFill="#5f5157">
                            <font>
                               <Font size="18.0" />
                            </font>
