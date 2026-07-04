@@ -73,13 +73,7 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadPage("/com/mycompany/metramoelyatama_apps/Master/Home.fxml");
-
-        menuHome.setOnAction(e -> {
-            loadPage("/com/mycompany/metramoelyatama_apps/Master/Home.fxml");
-            lblPageTitle.setText("Home Dashboard");
-            setActiveSubmenu(menuHome);
-        });
+        loadPage("/com/mycompany/metramoelyatama_apps/Master/Client.fxml");
 
         menuClients.setOnAction(e -> {
             loadPage("/com/mycompany/metramoelyatama_apps/Master/Client.fxml");
@@ -158,6 +152,12 @@ public class DashboardController implements Initializable {
             loadPage("/com/mycompany/metramoelyatama_apps/Laporan/LaporanPembelian.fxml");
             lblPageTitle.setText("Laporan Pembelian");
             setActiveSubmenu(menuLaporanPembelian);
+        });
+        
+        menuLaporanKeuntungan.setOnAction(e -> {
+            loadPage("/com/mycompany/metramoelyatama_apps/Laporan/LaporanKeuntungan.fxml");
+            lblPageTitle.setText("Laporan Keuntungan");
+            setActiveSubmenu(menuLaporanKeuntungan);
         });
 
     }

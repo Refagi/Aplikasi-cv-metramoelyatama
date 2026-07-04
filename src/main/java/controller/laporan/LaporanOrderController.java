@@ -14,6 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.InputStream;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import models.laporan.OrderRow;
 import utils.DBConnection;
 
@@ -149,37 +158,39 @@ public class LaporanOrderController implements Initializable {
         }
     }
 
-    // ════════════════════════════════════════════════════════
-    //  EXPORT PDF (JasperReports)
-    // ════════════════════════════════════════════════════════
     @FXML
     private void btnexportOrder() {
         if (daftarLaporan.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Perhatian", "Tidak ada data untuk dicetak. Tampilkan data dahulu.");
             return;
         }
+        
+        String reportPath = "/reports/LaporanOrder.jasper"; 
 
-        // TODO: panggil JasperReports di sini, contoh kerangka:
-        //
-        // try {
-        //     Map<String, Object> params = new HashMap<>();
-        //     params.put("tglMulai", txtdariOrder.getValue().toString());
-        //     params.put("tglSelesai", txtsampaiOrder.getValue().toString());
-        //
-        //     JasperReport report = JasperCompileManager.compileReport(
-        //         getClass().getResourceAsStream("/reports/LaporanOrder.jrxml"));
-        //
-        //     JasperPrint print = JasperFillManager.fillReport(
-        //         report, params, new JRBeanCollectionDataSource(daftarLaporan));
-        //
-        //     JasperExportManager.exportReportToPdfFile(print, "LaporanOrder.pdf");
-        //
-        //     showAlert(Alert.AlertType.INFORMATION, "Berhasil", "Laporan berhasil diexport.");
-        // } catch (Exception e) {
-        //     showAlert(Alert.AlertType.ERROR, "Error", "Gagal export: " + e.getMessage());
-        // }
+        try (InputStream reportStream = getClass().getResourceAsStream(reportPath)) {
+            if (reportStream == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "File template laporan tidak ditemukan di path: " + reportPath);
+                return;
+            }
 
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Export PDF akan diintegrasikan dengan JasperReports.");
+            Map<String, Object> params = new HashMap<>();
+            params.put("tgl_dari", txtdariOrder.getValue().toString());
+            params.put("tgl_sampai", txtsampaiOrder.getValue().toString());
+            params.put("status_filter", cmbstatusFilterOrder.getValue());
+            params.put("total_order", lblTotalOrder.getText().replace("Total Order: ", ""));
+            params.put("total_nilai", lblTotalNilaiOrder.getText().replace("Total Nilai: ", ""));
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(new ArrayList<>(daftarLaporan));
+
+            JasperPrint print = JasperFillManager.fillReport(reportStream, params, dataSource);
+
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Gagal export laporan order: " + e.getMessage());
+        }
+
     }
 
     private String formatAngka(double value) {

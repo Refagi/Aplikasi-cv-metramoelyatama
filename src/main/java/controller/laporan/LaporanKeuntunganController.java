@@ -18,25 +18,46 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+
+import java.io.InputStream;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import java.util.HashMap;
+import java.util.Map;
+
 import models.KeuntunganRow;
 import utils.DBConnection;
 
 public class LaporanKeuntunganController implements Initializable {
 
-    @FXML private DatePicker txtdariKeuntungan;
-    @FXML private DatePicker txtsampaiKeuntungan;
-    @FXML private Button     btntampilkanKeuntungan;
-    @FXML private Button     btnexportKeuntungan;
+    @FXML
+    private DatePicker txtdariKeuntungan;
+    @FXML
+    private DatePicker txtsampaiKeuntungan;
+    @FXML
+    private Button btntampilkanKeuntungan;
+    @FXML
+    private Button btnexportKeuntungan;
 
-    @FXML private Label lblTotalPemasukan;
-    @FXML private Label lblTotalPengeluaran;
-    @FXML private Label lblTotalKeuntungan;
+    @FXML
+    private Label lblTotalPemasukan;
+    @FXML
+    private Label lblTotalPengeluaran;
+    @FXML
+    private Label lblTotalKeuntungan;
 
-    @FXML private TableView<KeuntunganRow>           tblLaporanKeuntungan;
-    @FXML private TableColumn<KeuntunganRow, String> clmbulanKeuntungan;
-    @FXML private TableColumn<KeuntunganRow, String> clmpemasukanKeuntungan;
-    @FXML private TableColumn<KeuntunganRow, String> clmpengeluaranKeuntungan;
-    @FXML private TableColumn<KeuntunganRow, String> clmkeuntunganKeuntungan;
+    @FXML
+    private TableView<KeuntunganRow> tblLaporanKeuntungan;
+    @FXML
+    private TableColumn<KeuntunganRow, String> clmbulanKeuntungan;
+    @FXML
+    private TableColumn<KeuntunganRow, String> clmpemasukanKeuntungan;
+    @FXML
+    private TableColumn<KeuntunganRow, String> clmpengeluaranKeuntungan;
+    @FXML
+    private TableColumn<KeuntunganRow, String> clmkeuntunganKeuntungan;
 
     private ObservableList<KeuntunganRow> daftarLaporan = FXCollections.observableArrayList();
     private static final NumberFormat CURRENCY = NumberFormat.getInstance(new Locale("id", "ID"));
@@ -46,7 +67,6 @@ public class LaporanKeuntunganController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setupTableColumns();
 
-        // Default: 6 bulan terakhir
         txtdariKeuntungan.setValue(LocalDate.now().minusMonths(5).withDayOfMonth(1));
         txtsampaiKeuntungan.setValue(LocalDate.now());
 
@@ -67,14 +87,18 @@ public class LaporanKeuntunganController implements Initializable {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) { setText(null); setStyle(""); return; }
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                    return;
+                }
                 try {
                     double val = Double.parseDouble(item);
                     setText("Rp " + CURRENCY.format(val));
                     // Hijau kalau untung, merah kalau rugi
                     setStyle(val >= 0
-                        ? "-fx-text-fill: #1b7d3c; -fx-font-weight: bold;"
-                        : "-fx-text-fill: #ba1a1a; -fx-font-weight: bold;");
+                            ? "-fx-text-fill: #1b7d3c; -fx-font-weight: bold;"
+                            : "-fx-text-fill: #ba1a1a; -fx-font-weight: bold;");
                 } catch (NumberFormatException e) {
                     setText(item);
                 }
@@ -89,7 +113,10 @@ public class LaporanKeuntunganController implements Initializable {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) { setText(null); return; }
+                if (empty || item == null) {
+                    setText(null);
+                    return;
+                }
                 try {
                     setText("Rp " + CURRENCY.format(Double.parseDouble(item)));
                     setStyle("-fx-text-fill: " + warna + ";");
@@ -108,7 +135,7 @@ public class LaporanKeuntunganController implements Initializable {
     private void tampilkanData() {
         daftarLaporan.clear();
 
-        LocalDate dari   = txtdariKeuntungan.getValue();
+        LocalDate dari = txtdariKeuntungan.getValue();
         LocalDate sampai = txtsampaiKeuntungan.getValue();
 
         if (dari == null || sampai == null) {
@@ -123,29 +150,29 @@ public class LaporanKeuntunganController implements Initializable {
 
         List<YearMonth> daftarBulan = getRentangBulan(dari, sampai);
 
-        double totalPemasukanSemua   = 0;
+        double totalPemasukanSemua = 0;
         double totalPengeluaranSemua = 0;
 
         try (Connection conn = DBConnection.getInstance().getConnection()) {
 
             for (YearMonth ym : daftarBulan) {
-                LocalDate awalBulan  = ym.atDay(1);
+                LocalDate awalBulan = ym.atDay(1);
                 LocalDate akhirBulan = ym.atEndOfMonth();
 
-                double pemasukan   = hitungPemasukan(conn, awalBulan, akhirBulan);
+                double pemasukan = hitungPemasukan(conn, awalBulan, akhirBulan);
                 double pengeluaran = hitungPengeluaran(conn, awalBulan, akhirBulan);
-                double keuntungan  = pemasukan - pengeluaran;
+                double keuntungan = pemasukan - pengeluaran;
 
-                totalPemasukanSemua   += pemasukan;
+                totalPemasukanSemua += pemasukan;
                 totalPengeluaranSemua += pengeluaran;
 
                 String namaBulan = ym.getMonth().getDisplayName(TextStyle.FULL, LOCALE_ID) + " " + ym.getYear();
 
                 daftarLaporan.add(new KeuntunganRow(
-                    namaBulan,
-                    formatAngka(pemasukan),
-                    formatAngka(pengeluaran),
-                    formatAngka(keuntungan)
+                        namaBulan,
+                        formatAngka(pemasukan),
+                        formatAngka(pengeluaran),
+                        formatAngka(keuntungan)
                 ));
             }
 
@@ -155,8 +182,8 @@ public class LaporanKeuntunganController implements Initializable {
             lblTotalPengeluaran.setText("Total Pengeluaran: Rp " + CURRENCY.format(totalPengeluaranSemua));
             lblTotalKeuntungan.setText("Keuntungan: Rp " + CURRENCY.format(totalKeuntunganSemua));
             lblTotalKeuntungan.setTextFill(totalKeuntunganSemua >= 0
-                ? javafx.scene.paint.Color.web("#1b7d3c")
-                : javafx.scene.paint.Color.web("#ba1a1a"));
+                    ? javafx.scene.paint.Color.web("#1b7d3c")
+                    : javafx.scene.paint.Color.web("#ba1a1a"));
 
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Gagal memuat laporan: " + e.getMessage());
@@ -164,8 +191,8 @@ public class LaporanKeuntunganController implements Initializable {
     }
 
     private double hitungPemasukan(Connection conn, LocalDate dari, LocalDate sampai) throws SQLException {
-        String sql = "SELECT COALESCE(SUM(jumlah_bayar),0) AS total FROM `Pembayaran` " +
-                     "WHERE tgl_bayar BETWEEN ? AND ?";
+        String sql = "SELECT COALESCE(SUM(jumlah_bayar),0) AS total FROM `Pembayaran` "
+                + "WHERE tgl_bayar BETWEEN ? AND ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, dari.toString());
             stmt.setString(2, sampai.toString());
@@ -176,8 +203,8 @@ public class LaporanKeuntunganController implements Initializable {
     }
 
     private double hitungPengeluaran(Connection conn, LocalDate dari, LocalDate sampai) throws SQLException {
-        String sql = "SELECT COALESCE(SUM(total),0) AS total FROM `Pembelian` " +
-                     "WHERE DATE(tanggal) BETWEEN ? AND ?";
+        String sql = "SELECT COALESCE(SUM(total),0) AS total FROM `Pembelian` "
+                + "WHERE DATE(tanggal) BETWEEN ? AND ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, dari.toString());
             stmt.setString(2, sampai.toString());
@@ -187,11 +214,10 @@ public class LaporanKeuntunganController implements Initializable {
         }
     }
 
-    /** Generate list YearMonth dari rentang tanggal dipilih, contoh: Jan 2026, Feb 2026, ... */
     private List<YearMonth> getRentangBulan(LocalDate dari, LocalDate sampai) {
         List<YearMonth> hasil = new ArrayList<>();
-        YearMonth mulai  = YearMonth.from(dari);
-        YearMonth akhir  = YearMonth.from(sampai);
+        YearMonth mulai = YearMonth.from(dari);
+        YearMonth akhir = YearMonth.from(sampai);
 
         YearMonth current = mulai;
         while (!current.isAfter(akhir)) {
@@ -201,22 +227,44 @@ public class LaporanKeuntunganController implements Initializable {
         return hasil;
     }
 
-    // ════════════════════════════════════════════════════════
-    //  EXPORT PDF (JasperReports)
-    // ════════════════════════════════════════════════════════
     @FXML
     private void btnexportKeuntungan() {
         if (daftarLaporan.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Perhatian", "Tidak ada data untuk dicetak. Tampilkan data dahulu.");
             return;
         }
+        
+        String reportPath = "/reports/LaporanKeuntungan.jasper"; 
 
-        // TODO: integrasi JasperReports (LaporanKeuntungan.jrxml)
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Export PDF akan diintegrasikan dengan JasperReports.");
+        try (InputStream reportStream = getClass().getResourceAsStream(reportPath)) {
+            if (reportStream == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "File template laporan tidak ditemukan di path: " + reportPath);
+                return;
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("tgl_dari", txtdariKeuntungan.getValue().toString());
+            params.put("tgl_sampai", txtsampaiKeuntungan.getValue().toString());
+            params.put("total_pemasukan", lblTotalPemasukan.getText().replace("Total Pemasukan: ", ""));
+            params.put("total_pengeluaran", lblTotalPengeluaran.getText().replace("Total Pengeluaran: ", ""));
+            params.put("total_keuntungan", lblTotalKeuntungan.getText().replace("Keuntungan: ", ""));
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(new ArrayList<>(daftarLaporan));
+
+            JasperPrint print = JasperFillManager.fillReport(reportStream, params, dataSource);
+
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Gagal export: " + e.getMessage());
+        }
     }
 
     private String formatAngka(double value) {
-        if (value == Math.floor(value)) return String.valueOf((long) value);
+        if (value == Math.floor(value)) {
+            return String.valueOf((long) value);
+        }
         return String.valueOf(value);
     }
 

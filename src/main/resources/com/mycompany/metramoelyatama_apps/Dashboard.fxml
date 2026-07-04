@@ -29,12 +29,6 @@
          
          <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="menu-scroll" VBox.vgrow="ALWAYS">
             <VBox fx:id="menuContainer" spacing="5">
-           
-               <Button fx:id="menuHome" prefHeight="42.0" prefWidth="245.0" styleClass="menu-item, active" text="Home" textFill="#5f5157">
-                  <graphic>
-                     <FontIcon iconColor="#473a40" iconLiteral="fas-home" iconSize="20" />
-                  </graphic>
-               </Button>
             
                <VBox spacing="2">
                   <Button fx:id="menuMaster" onAction="#toggleMaster" prefHeight="42.0" prefWidth="246.0" styleClass="menu-item" text="Master" textFill="#5f5157">

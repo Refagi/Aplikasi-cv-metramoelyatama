@@ -16,36 +16,64 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.InputStream;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import models.laporan.DetailPembelianRow;
 import models.laporan.PembelianRow;
 import utils.DBConnection;
 
 public class LaporanPembelianController implements Initializable {
 
-    @FXML private DatePicker       txtdariPembelian;
-    @FXML private DatePicker       txtsampaiPembelian;
-    @FXML private ComboBox<String> cmbsupplierFilterPembelian;
-    @FXML private Button           btntampilkanPembelian;
-    @FXML private Button           btnexportPembelian;
+    @FXML
+    private DatePicker txtdariPembelian;
+    @FXML
+    private DatePicker txtsampaiPembelian;
+    @FXML
+    private ComboBox<String> cmbsupplierFilterPembelian;
+    @FXML
+    private Button btntampilkanPembelian;
+    @FXML
+    private Button btnexportPembelian;
 
-    @FXML private Label lblTotalPembelian;
-    @FXML private Label lblTotalNilaiPembelian;
+    @FXML
+    private Label lblTotalPembelian;
+    @FXML
+    private Label lblTotalNilaiPembelian;
 
-    @FXML private TableView<PembelianRow>           tblLaporanPembelian;
-    @FXML private TableColumn<PembelianRow, String> clmnoPembelian;
-    @FXML private TableColumn<PembelianRow, String> clmfakturPembelian;
-    @FXML private TableColumn<PembelianRow, String> clmtglPembelian;
-    @FXML private TableColumn<PembelianRow, String> clmsupplierPembelian;
-    @FXML private TableColumn<PembelianRow, String> clmkaryawanPembelian;
-    @FXML private TableColumn<PembelianRow, String> clmtotalPembelian;
+    @FXML
+    private TableView<PembelianRow> tblLaporanPembelian;
+    @FXML
+    private TableColumn<PembelianRow, String> clmnoPembelian;
+    @FXML
+    private TableColumn<PembelianRow, String> clmfakturPembelian;
+    @FXML
+    private TableColumn<PembelianRow, String> clmtglPembelian;
+    @FXML
+    private TableColumn<PembelianRow, String> clmsupplierPembelian;
+    @FXML
+    private TableColumn<PembelianRow, String> clmkaryawanPembelian;
+    @FXML
+    private TableColumn<PembelianRow, String> clmtotalPembelian;
 
-    @FXML private TableView<DetailPembelianRow>           tblDetailLaporanPembelian;
-    @FXML private TableColumn<DetailPembelianRow, String> clmnamaBarangDetail;
-    @FXML private TableColumn<DetailPembelianRow, String> clmqtyDetail;
-    @FXML private TableColumn<DetailPembelianRow, String> clmhargaDetail;
-    @FXML private TableColumn<DetailPembelianRow, String> clmsubtotalDetail;
+    @FXML
+    private TableView<DetailPembelianRow> tblDetailLaporanPembelian;
+    @FXML
+    private TableColumn<DetailPembelianRow, String> clmnamaBarangDetail;
+    @FXML
+    private TableColumn<DetailPembelianRow, String> clmqtyDetail;
+    @FXML
+    private TableColumn<DetailPembelianRow, String> clmhargaDetail;
+    @FXML
+    private TableColumn<DetailPembelianRow, String> clmsubtotalDetail;
 
-    private ObservableList<PembelianRow>       daftarLaporan       = FXCollections.observableArrayList();
+    private ObservableList<PembelianRow> daftarLaporan = FXCollections.observableArrayList();
     private ObservableList<DetailPembelianRow> daftarDetailLaporan = FXCollections.observableArrayList();
 
     private final Map<String, String> mapSupplier = new LinkedHashMap<>();
@@ -91,9 +119,15 @@ public class LaporanPembelianController implements Initializable {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) { setText(null); return; }
-                try { setText("Rp " + CURRENCY.format(Double.parseDouble(item))); }
-                catch (NumberFormatException e) { setText(item); }
+                if (empty || item == null) {
+                    setText(null);
+                    return;
+                }
+                try {
+                    setText("Rp " + CURRENCY.format(Double.parseDouble(item)));
+                } catch (NumberFormatException e) {
+                    setText(item);
+                }
             }
         };
     }
@@ -103,27 +137,33 @@ public class LaporanPembelianController implements Initializable {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) { setText(null); return; }
-                try { setText("Rp " + CURRENCY.format(Double.parseDouble(item))); }
-                catch (NumberFormatException e) { setText(item); }
+                if (empty || item == null) {
+                    setText(null);
+                    return;
+                }
+                try {
+                    setText("Rp " + CURRENCY.format(Double.parseDouble(item)));
+                } catch (NumberFormatException e) {
+                    setText(item);
+                }
             }
         };
     }
 
     private void setupTableClick() {
         tblLaporanPembelian.getSelectionModel().selectedItemProperty()
-            .addListener((obs, oldVal, newVal) -> {
-                if (newVal != null) loadDetailPembelian(newVal.getId());
-            });
+                .addListener((obs, oldVal, newVal) -> {
+                    if (newVal != null) {
+                        loadDetailPembelian(newVal.getId());
+                    }
+                });
     }
 
     private void loadComboSupplier() {
         mapSupplier.clear();
         cmbsupplierFilterPembelian.getItems().add("Semua Supplier");
 
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT id, nama FROM `Supplier` ORDER BY nama");
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = DBConnection.getInstance().getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT id, nama FROM `Supplier` ORDER BY nama"); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 mapSupplier.put(rs.getString("nama"), rs.getString("id"));
@@ -151,12 +191,12 @@ public class LaporanPembelianController implements Initializable {
         }
 
         StringBuilder sql = new StringBuilder(
-            "SELECT p.id, p.no_faktur, p.tanggal, s.nama AS namaSupplier, " +
-            "k.nama AS namaKaryawan, p.total " +
-            "FROM `Pembelian` p " +
-            "LEFT JOIN `Supplier` s ON s.id = p.supplierId " +
-            "LEFT JOIN `Karyawan` k ON k.id = p.karyawanId " +
-            "WHERE DATE(p.tanggal) BETWEEN ? AND ? "
+                "SELECT p.id, p.no_faktur, p.tanggal, s.nama AS namaSupplier, "
+                + "k.nama AS namaKaryawan, p.total "
+                + "FROM `Pembelian` p "
+                + "LEFT JOIN `Supplier` s ON s.id = p.supplierId "
+                + "LEFT JOIN `Karyawan` k ON k.id = p.karyawanId "
+                + "WHERE DATE(p.tanggal) BETWEEN ? AND ? "
         );
 
         String supplierFilter = cmbsupplierFilterPembelian.getValue();
@@ -167,8 +207,7 @@ public class LaporanPembelianController implements Initializable {
 
         sql.append("ORDER BY p.tanggal ASC");
 
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+        try (Connection conn = DBConnection.getInstance().getConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
 
             stmt.setString(1, txtdariPembelian.getValue().toString());
             stmt.setString(2, txtsampaiPembelian.getValue().toString());
@@ -185,13 +224,13 @@ public class LaporanPembelianController implements Initializable {
                     totalSemua += total;
 
                     daftarLaporan.add(new PembelianRow(
-                        String.valueOf(no++),
-                        rs.getString("id"),
-                        rs.getString("no_faktur"),
-                        rs.getString("tanggal"),
-                        rs.getString("namaSupplier"),
-                        rs.getString("namaKaryawan"),
-                        formatAngka(total)
+                            String.valueOf(no++),
+                            rs.getString("id"),
+                            rs.getString("no_faktur"),
+                            rs.getString("tanggal"),
+                            rs.getString("namaSupplier"),
+                            rs.getString("namaKaryawan"),
+                            formatAngka(total)
                     ));
                 }
 
@@ -204,26 +243,24 @@ public class LaporanPembelianController implements Initializable {
         }
     }
 
-    /** Saat baris pembelian diklik, tampilkan rincian barang yang dibeli */
     private void loadDetailPembelian(String pembelianId) {
         daftarDetailLaporan.clear();
 
-        String sql = "SELECT b.nama_barang, d.qty, d.harga, d.subtotal " +
-                     "FROM `Detail_pembelian` d " +
-                     "LEFT JOIN `Barang` b ON b.id = d.barangId " +
-                     "WHERE d.pembelianId = ? ORDER BY b.nama_barang ASC";
+        String sql = "SELECT b.nama_barang, d.qty, d.harga, d.subtotal "
+                + "FROM `Detail_pembelian` d "
+                + "LEFT JOIN `Barang` b ON b.id = d.barangId "
+                + "WHERE d.pembelianId = ? ORDER BY b.nama_barang ASC";
 
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getInstance().getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, pembelianId);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     daftarDetailLaporan.add(new DetailPembelianRow(
-                        rs.getString("nama_barang"),
-                        rs.getString("qty"),
-                        formatAngka(rs.getDouble("harga")),
-                        formatAngka(rs.getDouble("subtotal"))
+                            rs.getString("nama_barang"),
+                            rs.getString("qty"),
+                            formatAngka(rs.getDouble("harga")),
+                            formatAngka(rs.getDouble("subtotal"))
                     ));
                 }
             }
@@ -233,22 +270,56 @@ public class LaporanPembelianController implements Initializable {
         }
     }
 
-    // ════════════════════════════════════════════════════════
-    //  EXPORT PDF (JasperReports)
-    // ════════════════════════════════════════════════════════
     @FXML
     private void btnexportPembelian() {
         if (daftarLaporan.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Perhatian", "Tidak ada data untuk dicetak. Tampilkan data dahulu.");
             return;
         }
+        
+        String reportPath = "/reports/LaporanPembelian.jasper";
 
-        // TODO: integrasi JasperReports (LaporanPembelian.jrxml)
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Export PDF akan diintegrasikan dengan JasperReports.");
+        try (InputStream reportStream = getClass().getResourceAsStream(reportPath)) {
+            if (reportStream == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "File template laporan tidak ditemukan di path: " + reportPath);
+                return;
+            }
+
+            Map<String, Object> params = new HashMap<>();
+
+            params.put("tgl_dari", txtdariPembelian.getValue() != null ? txtdariPembelian.getValue().toString() : "");
+            params.put("tgl_sampai", txtsampaiPembelian.getValue() != null ? txtsampaiPembelian.getValue().toString() : "");
+
+            String supplierFilter = cmbsupplierFilterPembelian.getValue() != null ? cmbsupplierFilterPembelian.getValue() : "Semua Supplier";
+            params.put("supplier_filter", supplierFilter);
+
+            String supplierId = "";
+            if (supplierFilter != null && !supplierFilter.equals("Semua Supplier")) {
+                supplierId = mapSupplier.get(supplierFilter);
+            }
+            params.put("supplier_id", supplierId != null ? supplierId : "");
+
+            String totalPengeluaran = lblTotalNilaiPembelian.getText()
+                    .replace("Total Pengeluaran: ", "")
+                    .replace("Total : ", "");
+            params.put("total_pengeluaran", totalPengeluaran);
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(new ArrayList<>(daftarLaporan));
+
+            JasperPrint print = JasperFillManager.fillReport(reportStream, params, dataSource);
+
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Gagal export laporan pembelian: " + e.getMessage());
+        }
     }
 
     private String formatAngka(double value) {
-        if (value == Math.floor(value)) return String.valueOf((long) value);
+        if (value == Math.floor(value)) {
+            return String.valueOf((long) value);
+        }
         return String.valueOf(value);
     }
 

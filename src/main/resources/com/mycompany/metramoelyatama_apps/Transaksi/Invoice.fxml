@@ -9,120 +9,136 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane stylesheets="@../css/Dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KaryawanController">
-    <AnchorPane fx:id="masterKaryawan" layoutX="10.0" layoutY="10.0" prefHeight="849.0" prefWidth="1199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="820.0" prefWidth="434.0">
-                     <styleClass>
-                        <String fx:value="bg-second" />
-                        <String fx:value="bg-shadow" />
-                     </styleClass>
-                     <children>
-                        <Label layoutX="49.0" layoutY="17.0" styleClass="brand-title" text="Akun Login Karyawan" textFill="#5f5157" />
-                        <FontIcon iconColor="#473a40" iconLiteral="fas-lock" iconSize="20" layoutX="14.0" layoutY="37.0" />
-                        <VBox layoutX="20.0" layoutY="65.0" prefHeight="120.0" prefWidth="195.0" spacing="12.0">
-                           <children>
-                              <Label prefHeight="22.0" prefWidth="106.0" styleClass="field-label-kry" text="Email" />
-                              <TextField fx:id="txtemailKaryawan" prefHeight="36.0" prefWidth="151.0" promptText="budi@gmail.com" styleClass="input-field-kry" />
-                              <Label layoutX="10.0" layoutY="10.0" prefHeight="22.0" prefWidth="142.0" styleClass="field-label-kry" text="Password" />
-                              <TextField fx:id="txtpasswordKaryawan" layoutX="10.0" layoutY="42.0" prefHeight="26.0" prefWidth="404.0" promptText="budi123" styleClass="input-field-kry" />
-                           </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </VBox>
-                        <HBox layoutX="14.0" layoutY="759.0" prefHeight="40.0" prefWidth="418.0" spacing="3.0">
-                           <children>
-                              <Button fx:id="btnsaveKaryawan" onAction="#btnsaveKaryawan" mnemonicParsing="false" styleClass="btn-primary-kry" text="Simpan">
-                                 <graphic>
+<AnchorPane prefHeight="844.0" prefWidth="1385.0" stylesheets="@../css/Dashboard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.InvoiceController">
+    <AnchorPane fx:id="masterKaryawan" layoutX="10.0" layoutY="10.0" prefHeight="872.0" prefWidth="1385.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+            <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="820.0" prefWidth="434.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <Separator layoutX="16.0" layoutY="462.0" prefWidth="406.0" />
+                    <Label layoutX="49.0" layoutY="17.0" styleClass="brand-title" text="Input Data  Invoice" textFill="#5f5157" />
+                    <FontIcon iconLiteral="fas-file-invoice-dollar" iconSize="20" layoutX="14.0" layoutY="37.0" />
+                    <HBox layoutX="9.0" layoutY="410.0" prefHeight="42.0" prefWidth="420.0" spacing="3.0">
+                        <children>
+                            <Button fx:id="btnsaveInvoice" mnemonicParsing="false" onAction="#btnsaveInvoice" prefHeight="38.0" prefWidth="110.0" styleClass="btn-primary" text="Simpan">
+                                <graphic>
                                     <FontIcon iconColor="WHITE" iconLiteral="fas-save" iconSize="16" text="" wrappingWidth="18.0" />
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="btnupdateKaryawan" onAction="#btnupdateKaryawan" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-thirdty-kry" text="Ubah">
-                                 <graphic>
+                                </graphic>
+                            </Button>
+                            <Button fx:id="btnupdateInvoice" mnemonicParsing="false" onAction="#btnupdateInvoice" prefHeight="40.0" prefWidth="106.0" styleClass="btn-thirdty" text="Ubah ">
+                                <graphic>
                                     <FontIcon iconColor="#473a40" iconLiteral="fas-edit" iconSize="16" text="" />
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="btndeleteKaryawan" onAction="#btndeleteKaryawan" layoutX="92.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-secondary-kry" text="Hapus">
-                                 <graphic>
+                                </graphic>
+                            </Button>
+                            <Button fx:id="btndeleteInvoice" layoutX="92.0" layoutY="10.0" mnemonicParsing="false" onAction="#btndeleteInvoice" styleClass="btn-secondary" text="Hapus">
+                                <graphic>
                                     <FontIcon iconColor="#ba1a1a" iconLiteral="fas-trash" iconSize="16" />
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="btnresetKaryawan" onAction="#btnresetKaryawan" layoutX="106.0" layoutY="15.0" mnemonicParsing="false" styleClass="btn-thirdty-kry" text="Reset">
-                                 <graphic>
+                                </graphic>
+                            </Button>
+                            <Button fx:id="btnresetInvoice" layoutX="106.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnresetInvoice" styleClass="btn-thirdty" text="Reset">
+                                <graphic>
                                     <FontIcon iconColor="#473a40" iconLiteral="fas-undo" iconSize="16" />
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <VBox layoutX="223.0" layoutY="60.0" prefHeight="120.0" prefWidth="195.0" spacing="7.0">
-                           <children>
-                              <Label layoutX="10.0" layoutY="425.0" prefHeight="22.0" prefWidth="122.0" styleClass="field-label-kry" text="Status User" />
-                              <ComboBox fx:id="txtstatusKaryawan" prefHeight="38.0" prefWidth="392.0" styleClass="input-field-kry" />
-                              <Label prefHeight="22.0" prefWidth="122.0" styleClass="field-label-kry" text="Role" />
-                              <ComboBox fx:id="txtroleKaryawan" prefHeight="38.0" prefWidth="392.0" styleClass="input-field-kry" />
-                           </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </VBox>
-                        <Separator layoutX="22.0" layoutY="264.0" prefHeight="1.0" prefWidth="402.0" styleClass="custom-separator-kry" />
-                        <Label layoutX="49.0" layoutY="289.0" styleClass="brand-title" text="Data Karyawan" textFill="#5f5157" />
-                        <FontIcon iconColor="#473a40" iconLiteral="fas-lock" iconSize="20" layoutX="14.0" layoutY="309.0" />
-                        <VBox layoutX="11.0" layoutY="328.0" prefHeight="380.0" prefWidth="413.0" spacing="15.0">
-                           <children>
-                              <Label prefHeight="22.0" prefWidth="133.0" styleClass="field-label-kry" text="Nama Karyawan" />
-                              <TextField fx:id="txtnamaKaryawan" prefHeight="36.0" prefWidth="151.0" promptText="Budiarso" styleClass="input-field-kry" />
-                              <Label layoutX="10.0" layoutY="10.0" prefHeight="22.0" prefWidth="142.0" styleClass="field-label-kry" text="Jabatan" />
-                              <TextField fx:id="txtjabatanKaryawan" layoutX="10.0" layoutY="42.0" prefHeight="26.0" prefWidth="404.0" promptText="Logistik" styleClass="input-field-kry" />
-                              <Label layoutX="20.0" layoutY="82.0" prefHeight="22.0" prefWidth="142.0" styleClass="field-label-kry" text="No.Telp" />
-                              <TextField fx:id="txtnoKaryawan" layoutX="20.0" layoutY="111.0" prefHeight="26.0" prefWidth="404.0" promptText="087346435346" styleClass="input-field-kry" />
-                              <Label layoutX="20.0" layoutY="154.0" prefHeight="22.0" prefWidth="142.0" styleClass="field-label-kry" text="Tgl Masuk" />
-                              <DatePicker fx:id="txttglKaryawan" prefHeight="32.0" prefWidth="143.0" styleClass="date-picker-field-kry" />
-                           </children>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="455.0" layoutY="7.0" prefHeight="820.0" prefWidth="730.0">
-                     <styleClass>
-                        <String fx:value="bg-second" />
-                        <String fx:value="bg-shadow" />
-                     </styleClass>
-                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" styleClass="brand-title" text="Table Akun Karyawan" textFill="#5f5157" />
-                        <TableView fx:id="tbluserKaryawan" layoutX="9.0" layoutY="59.0" prefHeight="320.0" prefWidth="715.0" styleClass="custom-table">
-                           <columns>
-                              <TableColumn fx:id="clmiduserKaryawan" prefWidth="109.0" text="Id" />
-                              <TableColumn fx:id="clmemailuserKaryawan" prefWidth="168.0" text="Email" />
-                              <TableColumn fx:id="clmpassworduserKaryawan" prefWidth="156.0" text="Password" />
-                              <TableColumn fx:id="clmstatususerKaryawan" prefWidth="137.0" text="Status" />
-                              <TableColumn fx:id="clmroleuserKaryawan" prefWidth="143.0" text="Role" />
-                           </columns>
-                        </TableView>
-                        <TextField fx:id="txtcariKaryawan" layoutX="514.0" layoutY="14.0" promptText="search..." styleClass="search-field" />
-                        <Separator layoutX="11.0" layoutY="397.0" prefHeight="11.0" prefWidth="712.0" styleClass="custom-separator-kry" />
-                        <Label layoutX="14.0" layoutY="432.0" styleClass="brand-title" text="Table Data Karyawan" textFill="#5f5157" />
-                        <TableView fx:id="tblClient11" layoutX="9.0" layoutY="477.0" prefHeight="320.0" prefWidth="715.0" styleClass="custom-table">
-                           <columns>
-                              <TableColumn fx:id="clmidKaryawan" prefWidth="121.0" text="Id" />
-                              <TableColumn fx:id="clmnamaKaryawan" prefWidth="128.0" text="Nama" />
-                              <TableColumn fx:id="clmjabatanKaryawan" prefWidth="157.0" text="Jabatan" />
-                              <TableColumn fx:id="clmnoKaryawan" prefWidth="170.0" text="No.Telp" />
-                              <TableColumn fx:id="clmtglKaryawan" prefWidth="137.0" text="Tgl Masuk" />
-                           </columns>
-                        </TableView>
-                        <TextField fx:id="txtcariClient11" layoutX="513.0" layoutY="426.0" promptText="search..." styleClass="search-field" />
-                     </children>
-                  </AnchorPane>
-               </children>
+                                </graphic>
+                            </Button>
+                        </children>
+                    </HBox>
+                    <VBox layoutX="9.0" layoutY="60.0" prefHeight="348.0" prefWidth="420.0" spacing="7.0">
+                        <children>
+                            <Label layoutX="10.0" layoutY="10.0" prefHeight="22.0" prefWidth="103.0" styleClass="field-label" text="Order" />
+                            <ComboBox fx:id="cmborderInvoice" layoutX="20.0" layoutY="68.0" prefHeight="26.0" prefWidth="408.0" promptText="Pilih Order" styleClass="input-field" />
+                            <Label styleClass="field-label" text="Total Bayar (Otomatis)" />
+                            <TextField fx:id="txttotalInvoice" editable="false" prefHeight="42.0" prefWidth="399.0" styleClass="input-field" />
+                            <Label styleClass="field-label" text="Tgl Invoice" />
+                            <DatePicker fx:id="txttglInvoice" prefHeight="42.0" prefWidth="399.0" styleClass="date-picker-field" />
+                            <Label styleClass="field-label" text="Status Bayar" />
+                            <ComboBox fx:id="cmbstatusInvoice" prefHeight="42.0" prefWidth="399.0" styleClass="input-field" />
+                            <Label fx:id="lblSisaBayar" styleClass="field-label" text="Sisa Bayar: -" />
+                        </children>
+                        <padding>
+                            <Insets left="10.0" right="10.0" />
+                        </padding>
+                    </VBox>
+               <HBox layoutX="19.0" layoutY="764.0" prefHeight="42.0" prefWidth="400.0">
+                  <children>
+                          <Button fx:id="btntambahByr" mnemonicParsing="false" onAction="#btntambahByr" prefHeight="40.0" prefWidth="130.0" styleClass="btn-primary" text="Tambah" />
+                          <Button fx:id="btnupdateByr" mnemonicParsing="false" onAction="#btnupdateByr" prefHeight="40.0" prefWidth="130.0" styleClass="btn-thirdty" text="Ubah " />
+                          <Button fx:id="btndeleteByr" mnemonicParsing="false" onAction="#btndeleteByr" prefHeight="38.0" prefWidth="130.0" styleClass="btn-secondary" text="Hapus" />
+                  </children>
+               </HBox>
+               <HBox layoutX="11.0" layoutY="474.0" prefHeight="78.0" prefWidth="420.0" spacing="30.0">
+                  <children>
+                     <VBox prefHeight="72.0" prefWidth="199.0" spacing="7.0">
+                        <children>
+                           <Label styleClass="field-label" text="Tgl Bayar" />
+                           <DatePicker fx:id="txttglByr" prefHeight="46.0" prefWidth="400.0" styleClass="date-picker-field" />
+                        </children>
+                     </VBox>
+                     <VBox prefHeight="78.0" prefWidth="253.0" spacing="7.0">
+                        <children>
+                           <Label styleClass="field-label" text="Jumlah Bayar" />
+                           <TextField fx:id="txtjmlhByr" editable="true" prefHeight="42.0" prefWidth="208.0" styleClass="input-field" />
+                        </children>
+                     </VBox>
+                  </children>
+                  <padding>
+                     <Insets left="10.0" right="10.0" />
+                  </padding>
+               </HBox>
+               <VBox layoutX="9.0" layoutY="552.0" prefHeight="204.0" prefWidth="420.0" spacing="7.0">
+                  <children>
+                     <Label styleClass="field-label" text="Metode Bayar" />
+                     <ComboBox fx:id="cmbmetodeByr" prefHeight="42.0" prefWidth="399.0" styleClass="input-field" />
+                     <Label layoutX="10.0" layoutY="272.0" prefHeight="22.0" prefWidth="103.0" styleClass="field-label" text="Catatan" />
+                     <TextArea fx:id="txtcttnByr" prefHeight="87.0" prefWidth="410.0" promptText="Catatan Pembayaran..." styleClass="input-area" />
+                  </children>
+                  <padding>
+                     <Insets left="10.0" right="10.0" />
+                  </padding>
+               </VBox>
+                </children>
             </AnchorPane>
+            <AnchorPane layoutX="455.0" layoutY="7.0" prefHeight="820.0" prefWidth="920.0">
+                <styleClass>
+                    <String fx:value="bg-second" />
+                    <String fx:value="bg-shadow" />
+                </styleClass>
+                <children>
+                    <Label layoutX="14.0" layoutY="14.0" styleClass="brand-title" text="Table Data Invoice" textFill="#5f5157" />
+                    <TableView fx:id="tblInvoice" layoutX="9.0" layoutY="59.0" prefHeight="320.0" prefWidth="900.0" styleClass="custom-table">
+                        <columns>
+                            <TableColumn fx:id="clmidInvoice" prefWidth="176.0" text="ID" />
+                            <TableColumn fx:id="clmorderidInvoice" prefWidth="161.0" text="Order ID" />
+                            <TableColumn fx:id="clmtglbyrInvoice" prefWidth="179.0" text="Tgl Invoice" />
+                            <TableColumn fx:id="clmtotalbyrInvoice" prefWidth="203.0" text="Total Bayar" />
+                            <TableColumn fx:id="clmstatusbyrInvoice" prefWidth="179.0" text="Status Bayar" />
+                        </columns>
+                    </TableView>
+                    <TextField fx:id="txtcariInvoice" layoutX="715.0" layoutY="8.0" promptText="search..." styleClass="search-field" />
+                    <Separator layoutX="11.0" layoutY="397.0" prefHeight="11.0" prefWidth="900.0" styleClass="custom-separator-kry" />
+                    <Label layoutX="14.0" layoutY="432.0" styleClass="brand-title" text="Table Data Pembayaran" textFill="#5f5157" />
+                    <TableView fx:id="tblByr" layoutX="9.0" layoutY="477.0" prefHeight="335.0" prefWidth="900.0" styleClass="custom-table">
+                        <columns>
+                            <TableColumn fx:id="clmIdByr" prefWidth="111.0" text="ID" />
+                            <TableColumn fx:id="clminvoiceidByr" prefWidth="108.0" text="Invoice ID" />
+                            <TableColumn fx:id="clmtglByr" prefWidth="190.0" text="Tgl Bayar" />
+                            <TableColumn fx:id="clmjmlhByr" prefWidth="211.0" text="Jumlah Bayar" />
+                            <TableColumn fx:id="clmmetodeByr" prefWidth="171.0" text="Metode Bayar" />
+                            <TableColumn fx:id="clmcttnByr" prefWidth="291.0" text="Catatan" />
+                        </columns>
+                    </TableView>
+                    <TextField fx:id="txtcariByr" layoutX="718.0" layoutY="426.0" promptText="search..." styleClass="search-field" />
+                </children>
+            </AnchorPane>
+        </children>
+    </AnchorPane>
 </AnchorPane>

@@ -13,6 +13,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.InputStream;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import models.laporan.PengerjaanRow;
 import utils.DBConnection;
 
@@ -166,18 +175,38 @@ public class LaporanPengerjaanController implements Initializable {
         }
     }
 
-    // ════════════════════════════════════════════════════════
-    //  EXPORT PDF (JasperReports)
-    // ════════════════════════════════════════════════════════
     @FXML
     private void btnexportPengerjaan() {
         if (daftarLaporan.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Perhatian", "Tidak ada data untuk dicetak. Tampilkan data dahulu.");
             return;
         }
+        
+        String reportPath = "/reports/LaporanPengerjaan.jasper";
 
-        // TODO: integrasi JasperReports (LaporanPengerjaan.jrxml)
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Export PDF akan diintegrasikan dengan JasperReports.");
+        try (InputStream reportStream = getClass().getResourceAsStream(reportPath)) {
+            if (reportStream == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "File template laporan tidak ditemukan di path: " + reportPath);
+                return;
+            }
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("tgl_dari", txtdariPengerjaan.getValue() != null ? txtdariPengerjaan.getValue().toString() : "");
+            params.put("tgl_sampai", txtsampaiPengerjaan.getValue() != null ? txtsampaiPengerjaan.getValue().toString() : "");
+            
+            String statusFilter = cmbstatusFilterPengerjaan.getValue();
+            params.put("status_filter", statusFilter != null ? statusFilter : "Semua Status");
+
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            JasperPrint print = JasperFillManager.fillReport(reportStream, params, conn);
+
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Gagal export laporan pengerjaan: " + e.getMessage());
+        }
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
