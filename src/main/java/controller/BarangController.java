@@ -220,21 +220,22 @@ public class BarangController implements Initializable {
 
         String sql = """
             INSERT INTO `Barang`
-                (kode_barang, nama_barang, deskripsi, harga_beli, harga_jual, stok, satuan, supplierId)
-            VALUES (?,?,?,?,?,?,?,?)
+                (id, kode_barang, nama_barang, deskripsi, harga_beli, harga_jual, stok, satuan, supplierId)
+            VALUES (?,?,?,?,?,?,?,?,?)
             """;
 
         try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, txtkodeBarang.getText().trim().toUpperCase());
-            stmt.setString(2, txtnamaBarang.getText().trim());
-            stmt.setString(3, getNullable(txtdescBarang.getText()));
-            stmt.setDouble(4, parseDouble(txthbBarang.getText()));
-            stmt.setDouble(5, parseDouble(txthjBarang.getText()));
-            stmt.setInt(6,    parseInt(cmbstokBarang.getValue()));
-            stmt.setString(7, cmbsatuanBarang.getValue());
-            stmt.setString(8, cmbsuppBarang.getValue() != null
+            
+            stmt.setString(1, java.util.UUID.randomUUID().toString());
+            stmt.setString(2, txtkodeBarang.getText().trim().toUpperCase());
+            stmt.setString(3, txtnamaBarang.getText().trim());
+            stmt.setString(4, getNullable(txtdescBarang.getText()));
+            stmt.setDouble(5, parseDouble(txthbBarang.getText()));
+            stmt.setDouble(6, parseDouble(txthjBarang.getText()));
+            stmt.setInt(7,    parseInt(cmbstokBarang.getValue()));
+            stmt.setString(8, cmbsatuanBarang.getValue());
+            stmt.setString(9, cmbsuppBarang.getValue() != null
                 ? cmbsuppBarang.getValue().getId() : null);
 
             stmt.executeUpdate();
