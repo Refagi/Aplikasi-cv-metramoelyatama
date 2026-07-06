@@ -1,7 +1,7 @@
 # Aplikasi-cv-metramoelyatama
 Project ini di buat untuk memenuhi tugas matakuliah pemrograman visual
 
-#Flow Aplikasi
+# Flow Aplikasi
 Terdapat 2 role (Admin, Karyawan)
 Masing-masing memepunyai hak akses yang berbeda
 Admin: Dapat akses semua menu Table Master(Client, Karyawan, Supplier, Jenis Layanan, Barang), Table Transaksi(Orders, Pengerjaan, Invoice, Pembelian, Pengerjaan)
@@ -9,6 +9,12 @@ Laporan(Pembelian, Order, Pengerjaan, Invoice, Keuntungan)
 Karyawan: Depat akses ke semua menu kecuali, Table(Karyawan, Invoice, Pembelian) dan Laporan Keuntungan
 
 flow utama aplikasi ini yaitu: Admin atau karyawan -> Client -> Orders -> Pengerjaan, setelah itu (Admin) -> Invoice dan (Admin) -> Pembelian Barang
+
+## Login Admin 
+- (email: admin@gmail.com, password: admin123)
+
+## Login Karyawan
+- (email: budi@gmail.com, password: budi123)
 
 ## Anggota Kelompok
 - Reno Faza Givaro (202343501362)
